@@ -111,7 +111,7 @@ pip install -r requirements.txt
 or alternatively use
 
 ```bash
-pip install -q -U flask flask-cors python-dotenv flask-limiter flask-socketio transformers html vaderSentiment "numpy<2" scikit-learn pandas google-generativeai 
+pip install -q -U flask flask-cors python-dotenv flask-limiter flask-socketio torch transformers html vaderSentiment "numpy<2" scikit-learn pandas google-generativeai 
 ```
 
 Extras (Not required usually):
