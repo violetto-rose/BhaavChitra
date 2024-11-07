@@ -32,13 +32,13 @@ html {
   background-color: white;
   transform: scale(2);
 }
-
+/*
 .launch-btn,
 a,
 button {
   cursor: none !important;
 }
-
+*/
 /*Spinner*/
 #loading-screen {
   position: fixed;
