@@ -1,0 +1,17 @@
+# Ignore virtual environment
+.venv/
+
+# Ignore model directories
+local_model/
+local_tokenizer/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore log and environment files
+.env
+app.log
+
+# Ignore Visual Studio folder
+.vs/

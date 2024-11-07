@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="@resources/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="@resources/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="@resources/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="@resources/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="BhaavChitra" />
+    <link rel="manifest" href="@resources/favicon/site.webmanifest" />
+    <title>BhaavChitra</title>
+    <link rel="stylesheet" href="CSS/styles.css" />
+    <link rel="stylesheet" href="CSS/common.css" />
+    <link rel="stylesheet" href="CSS/shootingstar.css" />
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="spinner"></div>
+    </div>
+
+    <!--Cursor-->
+    <div id="circularcursor" class="normal"></div>
+
+    <!-- Main Content -->
+    <div class="content" style="display: none">
+      <!-- PC content -->
+      <div id="pc-content">
+        <video class="background-video" autoplay loop muted playsinline>
+          <source src="@resources/background.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <img src="@resources/intro.gif" class="intro-gif" alt="Features" />
+      </div>
+
+      <!--Starry background-->
+      <div class="starry-sky" id="backgroundContainer"></div>
+
+      <!-- Mobile content -->
+      <div id="mobile-content" class="mobile-content">
+        <!--Title-->
+        <div class="title-container">
+          <div class="title">BhaavChitra</div>
+        </div>
+        <!--Subtitle-->
+        <div class="subtitle">
+          Explore the Universe of Emotions in Your Text
+        </div>
+        <!--Feature cards-->
+        <div class="features">
+          <div class="feature">
+            <h3>Stellar Accuracy</h3>
+            <p>Our advanced AI delivers precise sentiment analysis.</p>
+          </div>
+          <div class="feature">
+            <h3>Light-Speed Results</h3>
+            <p>Get instant insights faster than a shooting star.</p>
+          </div>
+          <div class="feature">
+            <h3>Universal Compatibility</h3>
+            <p>
+              Works with texts from any galaxy - Social media, reviews, etc.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--Launch button-->
+      <div class="launch-btn-container">
+        <a href="bhaavchitra.html" class="launch-btn trigger-on-enter">
+          Launch Your Analysis
+          <img src="@resources/button.gif" class="button-arrow" alt="Arrow" />
+        </a>
+      </div>
+    </div>
+    <script src="JS/nav.js"></script>
+    <script src="JS/script.js"></script>
+  </body>
+</html>

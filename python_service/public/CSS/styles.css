@@ -1,0 +1,150 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: "Red Hat Display", sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  width: 100%;
+}
+
+/*PC Content*/
+.background-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  object-fit: cover;
+  width: 100%;
+}
+
+.intro-gif {
+  max-width: 100%;
+  height: auto;
+  z-index: 1;
+  padding-bottom: 1rem;
+}
+
+.pc-video {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-repeat: no-repeat;
+}
+
+/*Mobile Content*/
+.mobile-content {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.title-container {
+  margin: 0.5rem;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: "Rowdies", sans-serif;
+  font-size: 3rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
+    0 0 40px rgba(255, 255, 255, 0.7);
+}
+
+.subtitle {
+  max-width: 80%;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 80%;
+  margin-bottom: 2rem;
+}
+
+.feature {
+  flex: 1 1 300px;
+  border: 2px solid #d9d9d9;
+  border-radius: 20px;
+  padding: 0.2rem;
+  text-align: center;
+}
+
+/*Launch button*/
+.launch-btn-container {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.launch-btn {
+  font-family: "Red Hat Display", sans-serif;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  text-decoration: none;
+  transition: opacity 2s ease, transform 2s ease;
+  z-index: 1;
+}
+
+.launch-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  padding: 2px;
+  background: linear-gradient(90deg, #ff66c4, #ffde59, #ff66c4);
+  background-size: 200% 100%;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: gradientMove 3s linear infinite;
+}
+
+.button-arrow {
+  height: 18px;
+  width: auto;
+  display: inline-block;
+  vertical-align: bottom;
+  margin-bottom: 2px;
+}
+
+/*Keyframes*/
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}

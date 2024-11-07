@@ -1,0 +1,34 @@
+# Core dependencies
+flask
+flask-cors
+python-dotenv
+flask-limiter
+flask-socketio
+
+# Machine Learning & Data Science
+transformers
+vaderSentiment
+numpy<2
+scikit-learn
+pandas
+google-generativeai
+
+# Progress & Utilities
+tqdm
+
+# Connectivity
+requests
+eventLet
+dnspython
+python-engineio
+
+# Optional Development Dependencies
+pytest
+black
+flake8
+pylint
+
+# Additional Utilities
+requests
+colorama
+psutil
