@@ -101,7 +101,7 @@ def main():
     else:
         print("    Run: source .venv/bin/activate")
     print("\nTo start the server:")
-    print("    python -m python_service.app")
+    print("    Run: flask run")
 
 if __name__ == "__main__":
     main()

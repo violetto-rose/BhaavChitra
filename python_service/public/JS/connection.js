@@ -25,6 +25,7 @@ socket.on("reconnect_failed", () => {
   console.error("Reconnect failed");
 });
 
+// Debounce analysis function
 function debounce(func, wait) {
   return function executedFunction(...args) {
     const later = () => {
@@ -36,6 +37,7 @@ function debounce(func, wait) {
   };
 }
 
+// Get emoticon for sentiment
 function getEmoticonForSentiment(sentiment) {
   switch (sentiment.toLowerCase()) {
     case "positive":
@@ -47,6 +49,7 @@ function getEmoticonForSentiment(sentiment) {
   }
 }
 
+// Get color for sentiment
 function getSentimentColor(sentiment) {
   switch (sentiment.toLowerCase()) {
     case "positive":
@@ -58,6 +61,7 @@ function getSentimentColor(sentiment) {
   }
 }
 
+// Create progress bar
 function createProgressBar(value, maxValue = 1) {
   const percentage = (value / maxValue) * 100;
   const color = value > 0 ? "#00ff55" : value < 0 ? "#ff2626" : "#808080";
@@ -71,6 +75,7 @@ function createProgressBar(value, maxValue = 1) {
   `;
 }
 
+// Fetch Gemini explanation
 async function getGeminiExplanation(text) {
   try {
     const response = await fetch("http://127.0.0.1:5000/analyze", {
@@ -89,6 +94,7 @@ async function getGeminiExplanation(text) {
   }
 }
 
+//
 async function analyzeSentimentWithRetry() {
   const retries = 3;
   console.log("analyzeSentimentWithRetry triggered");

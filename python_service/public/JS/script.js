@@ -9,7 +9,7 @@ function preloadResources() {
   const link = document.createElement("link");
   link.rel = "preload";
   link.href = logo;
-  link.as = "image/svg+xml"; // Update this line
+  link.as = "image/svg+xml";
   document.head.appendChild(link);
 
   if (window.location.pathname === "/index.html") {
@@ -71,14 +71,23 @@ window.addEventListener("load", async function () {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const cursor = document.getElementById("circularcursor");
+  // const cursor = document.getElementById("circularcursor");
   const hamburger = document.querySelector(".hamburger");
   const navbarLinks = document.querySelector(".navbar-links");
+  const analyzeButton = document.getElementById("analyzeButton");
 
   hamburger.addEventListener("click", () => {
     navbarLinks.classList.toggle("active");
   });
-  /* hidden due to issues temporarily, change it to block when fixed
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent default Enter behavior
+      analyzeButton.click();
+    }
+  });
+
+  /* hidden temorarily due to issues
   // Check if the device is a PC
   if (window.matchMedia("(pointer: fine)").matches) {
     // Show the cursor

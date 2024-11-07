@@ -45,6 +45,7 @@ app.logger.addHandler(file_handler)
 app.logger.addHandler(console_handler)
 app.logger.setLevel(logging.DEBUG)
 
+# Socket IO logger
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')

@@ -1,3 +1,4 @@
+/*custom cursor and loading screen styles*/
 body,
 html {
   margin: 0;
@@ -6,7 +7,7 @@ html {
   overflow: hidden;
 }
 
-/*Custom cursor*/
+/*Custom cursor
 #circularcursor {
   pointer-events: none;
   background-color: transparent;
@@ -21,25 +22,24 @@ html {
   display: none;
 }
 
-/* Normal state for the cursor */
+Normal state for the cursor
 #circularcursor.normal {
   background-color: transparent;
   transform: scale(1);
 }
 
-/* Hover effect for the cursor */
+Hover effect for the cursor
 #circularcursor.hover {
   background-color: white;
   transform: scale(2);
 }
-/*
+
 .launch-btn,
 a,
 button {
   cursor: none !important;
-}
-*/
-/*Spinner*/
+}*/
+
 #loading-screen {
   position: fixed;
   top: 0;
@@ -62,7 +62,6 @@ button {
   animation: spin 1s linear infinite, colorChange 2s ease-in-out infinite;
 }
 
-/* Spinner rotation animation */
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -72,13 +71,12 @@ button {
   }
 }
 
-/* Color change animation */
 @keyframes colorChange {
   0%,
   100% {
     border-top-color: #ff66c4;
-  } /* Pink color */
+  }
   50% {
     border-top-color: #ffde59;
-  } /* Yellow color */
+  }
 }

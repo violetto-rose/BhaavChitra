@@ -1,3 +1,4 @@
+// Load CSS
 function loadNavCSS() {
   const link = document.createElement("link");
   link.rel = "stylesheet";
@@ -5,6 +6,7 @@ function loadNavCSS() {
   document.head.appendChild(link);
 }
 
+// Inject navbar
 function injectNavbar() {
   const navbar = document.createElement("nav");
   navbar.classList.add("navbar");
@@ -12,7 +14,6 @@ function injectNavbar() {
   const navbarContainer = document.createElement("div");
   navbarContainer.classList.add("navbar-container");
 
-  // Logo
   const logoLink = document.createElement("a");
   logoLink.href = "index.html";
   logoLink.classList.add("navbar-logo");
@@ -21,18 +22,15 @@ function injectNavbar() {
   logoImg.alt = "Logo";
   logoLink.appendChild(logoImg);
 
-  // Navbar links
   const navbarLinks = document.createElement("ul");
   navbarLinks.classList.add("navbar-links");
 
-  // Links array
   const links = [
     { href: "index.html", text: "Home", id: "home-link" },
     { href: "bhaavchitra.html", text: "Services", id: "services-link" },
     { href: "about.html", text: "About", id: "about-link" },
   ];
 
-  // Add each link to navbar
   links.forEach((linkData) => {
     const li = document.createElement("li");
     li.classList.add("nav-item");
@@ -47,13 +45,11 @@ function injectNavbar() {
     navbarLinks.appendChild(li);
   });
 
-  // Hamburger menu
   const hamburger = document.createElement("div");
   hamburger.classList.add("hamburger");
   hamburger.innerHTML = "&#9776;";
   hamburger.setAttribute("aria-expanded", "false");
 
-  // Click handler for hamburger menu
   hamburger.addEventListener("click", () => {
     const isActive = navbarLinks.classList.toggle("active");
     hamburger.classList.toggle("active");
@@ -69,16 +65,14 @@ function injectNavbar() {
     }
   });
 
-  // Assemble navbar
   navbarContainer.appendChild(logoLink);
   navbarContainer.appendChild(navbarLinks);
   navbarContainer.appendChild(hamburger);
   navbar.appendChild(navbarContainer);
-
-  // Add navbar to the document
   document.body.insertBefore(navbar, document.body.firstChild);
 }
 
+// Set active link
 function setActiveLink() {
   const currentPage = window.location.pathname.split("/").pop();
   const navLinks = document.querySelectorAll(".nav-link");
@@ -91,6 +85,7 @@ function setActiveLink() {
   });
 }
 
+// Set navbar width (Overriding the flex)
 function setNavbarWidth() {
   const currentPage = window.location.pathname.split("/").pop();
   const navbar = document.querySelector(".navbar");
@@ -98,7 +93,6 @@ function setNavbarWidth() {
   navbar.style.width = currentPage === "bhaavchitra.html" ? "100%" : "";
 }
 
-// Event listeners for loading
 document.addEventListener("DOMContentLoaded", () => {
   loadNavCSS();
   injectNavbar();
