@@ -6,16 +6,14 @@ flask-limiter
 flask-socketio
 
 # Machine Learning & Data Science
-transformers
 torch
+transformers
 vaderSentiment
 numpy<2
 scikit-learn
 pandas
 google-generativeai
-
-# Progress & Utilities
-tqdm
+nltk
 
 # Connectivity
 requests
@@ -23,13 +21,15 @@ eventLet
 dnspython
 python-engineio
 
+# Additional Utilities
+colorama
+psutil
+
+# Progress & Utilities
+tqdm
+
 # Optional Development Dependencies
 pytest
 black
 flake8
 pylint
-
-# Additional Utilities
-requests
-colorama
-psutil
