@@ -162,7 +162,6 @@ def get_sentiment_description(combined_score, vader_scores, text):
     text_characteristics = ""
     if characteristics:
         text_characteristics = " The text is " + " and ".join(characteristics) + "."
-
     return f"{base_sentiment}.{emotional_content}{text_characteristics} (Combined score: {combined_score:.2f})"
 
 def preprocess_text(text):

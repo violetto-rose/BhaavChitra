@@ -300,6 +300,7 @@ async function analyzeSentimentWithRetry() {
 
       // Ensure all required properties exist with safe defaults
       const safeData = {
+        text_description: data.text_description || "No description available",
         overall_sentiment: data.overall_sentiment || "Neutral",
         combined_score: Number(data.combined_score) || 0,
         vader_compound: Number(data.vader_compound) || 0,
