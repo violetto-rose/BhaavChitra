@@ -438,7 +438,7 @@ def analyze_sentiment():
         # Ensure all numeric values are properly formatted
         sentiment_analysis = combine_sentiment_scores(vader_scores, bert_score, text)
         
-        sentiment_description = get_sentiment_description(sentiment_analysis, vader_scores, text)
+        sentiment_description = get_sentiment_description(sentiment_analysis['combined_score'], vader_scores, text)
         
         # Ensure all numeric values are valid numbers before sending to frontend
         result = {
