@@ -319,6 +319,7 @@ async function analyzeSentimentWithRetry() {
 
         <div class="sentiment-overview">
           <h3>Sentiment Analysis</h3>
+          <p class="description">${safeData.text_description}</p>
           <h4>Overall Sentiment: <span style="color: ${sentimentColor};">${
         safeData.overall_sentiment
       }</span></h4>
@@ -366,6 +367,55 @@ async function analyzeSentimentWithRetry() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  const popupOverlay = document.getElementById("popupOverlay");
+  const submitButton = document.getElementById("submitAnalysisType");
+
+  // Show popup on load
+  popupOverlay.style.display = "flex";
+
+  submitButton.addEventListener("click", () => {
+    const selectedOption = document.querySelector(
+      'input[name="analysis-type"]:checked'
+    );
+    const selectedOptionId = selectedOption.id;
+
+    // Set the global analysis type
+    fetch("/set-analysis-type", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ analysis_type: selectedOptionId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Analysis type set:", data.analysis_type);
+
+        // Hide popup
+        popupOverlay.style.display = "none";
+
+        const text = document.getElementById("textInput").value;
+
+        fetch("/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: text }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Analysis result:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  });
+
   // Add input event listener for real-time character count
   const textInput = document.getElementById("textInput");
   textInput.addEventListener("input", debounce(updateCharacterCount, 100));

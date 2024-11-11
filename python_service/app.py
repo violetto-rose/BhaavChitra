@@ -113,6 +113,58 @@ bert_analyzer = BertAnalyzer()
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 
+def get_sentiment_description(combined_score, vader_scores, text):
+    """Generate a detailed description of the sentiment analysis"""
+    
+    # Overall sentiment strength
+    if abs(combined_score) < 0.2:
+        strength = "slightly"
+    elif abs(combined_score) < 0.5:
+        strength = "moderately"
+    else:
+        strength = "strongly"
+
+    # Base description
+    if combined_score > 0.05:
+        base_sentiment = f"The text is {strength} positive"
+    elif combined_score < -0.05:
+        base_sentiment = f"The text is {strength} negative"
+    else:
+        base_sentiment = "The text is neutral"
+
+    # Analyze emotional components
+    emotions = []
+    if vader_scores['pos'] > 0.2:
+        emotions.append("positive emotions")
+    if vader_scores['neg'] > 0.2:
+        emotions.append("negative emotions")
+    if vader_scores['neu'] > 0.5:
+        emotions.append("neutral/factual content")
+
+    emotional_content = ""
+    if emotions:
+        emotional_content = " It contains " + ", ".join(emotions) + "."
+
+    # Analyze text characteristics
+    characteristics = []
+    word_count = len(text.split())
+    if word_count < 10:
+        characteristics.append("brief")
+    elif word_count > 50:
+        characteristics.append("detailed")
+
+    # Check for exclamation marks and question marks
+    if "!" in text:
+        characteristics.append("emphatic")
+    if "?" in text:
+        characteristics.append("interrogative")
+
+    text_characteristics = ""
+    if characteristics:
+        text_characteristics = " The text is " + " and ".join(characteristics) + "."
+
+    return f"{base_sentiment}.{emotional_content}{text_characteristics} (Combined score: {combined_score:.2f})"
+
 def preprocess_text(text):
     """
     Preprocess text with various NLP techniques
@@ -242,6 +294,8 @@ def format_markdown_to_html(text):
     
     return formatted_text
 
+SELECTED_ANALYSIS_TYPE = "normal-sentiment"
+
 def combine_sentiment_scores(vader_scores, bert_score, text):
     """Combine VADER and BERT scores with simplified output"""
     # Set default values
@@ -260,22 +314,30 @@ def combine_sentiment_scores(vader_scores, bert_score, text):
     combined_score = vader_scores['compound'] * (1 - bert_confidence) + bert_numeric * bert_confidence
     overall_sentiment = 'Positive' if combined_score >= 0.05 else 'Negative' if combined_score <= -0.05 else 'Neutral'
     
+    text_description = get_sentiment_description(combined_score, vader_scores, text)
+    
     try:
         model = genai.GenerativeModel("gemini-1.5-flash")
-        feedback_text = 'Analyze the following feedback text: ' if 'feedback' in text.lower() else 'Explain the following text in a concise and informative manner, considering its sentiment:'
-        prompt = f"""
-        {feedback_text} {text}
-
-        'If this is feedback, provide a concise summary of the key points.' +
-        '* **Positive Points:** Highlight the specific aspects that were praised or appreciated.' +
-        '* **Negative Points:** Identify any criticisms or areas for improvement.' +
-        '* **Actionable Insights:** Suggest potential steps or strategies to address the negative points and enhance the overall performance or product.' if 'feedback' in text.lower() else ''
-        """
-
+        if SELECTED_ANALYSIS_TYPE == "normal-sentiment":
+            app.logger.info("normal-sentiment")
+            prompt = f"Explain the following text in a concise and informative manner, considering its sentiment: {text}"
+        elif SELECTED_ANALYSIS_TYPE == "feedback-sentiment":
+            app.logger.info("feedback-sentiment")
+            feedback_text = 'Analyze the following feedback text: ' if 'feedback' in text.lower() else 'Explain the following text in a concise and informative manner, considering its sentiment:'
+            prompt = f"""
+            {feedback_text} {text}
+            'If this is feedback, provide a concise summary of the key points.' +
+            '* **Positive Points:** Highlight the specific aspects that were praised or appreciated.' +
+            '* **Negative Points:** Identify any criticisms or areas for improvement.' +
+            '* **Actionable Insights:** Suggest potential steps or strategies to address the negative points and enhance the overall performance or product.' if 'feedback' in text.lower() else ''
+            """
+        else:
+            app.logger.info("Default prompt")
+            # If analysis_type is not recognized, use a default prompt
+            prompt = f"Explain the following text in a concise and informative manner, considering its sentiment: {text}"
+        
         gemini_response = model.generate_content(prompt)
         gemini_explanation = format_markdown_to_html(gemini_response.text)
-        app.logger.info(gemini_explanation)
-
     except Exception as e:
         app.logger.error("Error calling Gemini API: %s", e)
         gemini_explanation = "N/A"
@@ -283,6 +345,7 @@ def combine_sentiment_scores(vader_scores, bert_score, text):
     return {
         'combined_score': combined_score,
         'overall_sentiment': overall_sentiment,
+        'text_description': text_description,
         'vader_compound': vader_scores['compound'],
         'bert_score': bert_numeric,
         'gemini_explanation': gemini_explanation
@@ -309,7 +372,16 @@ def about():
 
 @app.route("/favicon.ico")
 def favicon():
-    return send_from_directory("public/@resources/favicon", "favicon.ico")
+    return send_from_directory("public/@resources", "favicon.png")
+
+@app.route('/set-analysis-type', methods=['POST'])
+def set_analysis_type():
+    data = request.get_json()
+    analysis_type = data.get('analysis_type', 'normal-sentiment')
+    global SELECTED_ANALYSIS_TYPE
+    SELECTED_ANALYSIS_TYPE = analysis_type
+    app.logger.info(f"Analysis type set to: {SELECTED_ANALYSIS_TYPE}")
+    return jsonify({'analysis_type': SELECTED_ANALYSIS_TYPE})
 
 @app.route('/analyze', methods=['POST'])
 def analyze_sentiment():
@@ -366,10 +438,13 @@ def analyze_sentiment():
         # Ensure all numeric values are properly formatted
         sentiment_analysis = combine_sentiment_scores(vader_scores, bert_score, text)
         
+        sentiment_description = get_sentiment_description(sentiment_analysis, vader_scores, text)
+        
         # Ensure all numeric values are valid numbers before sending to frontend
         result = {
             'combined_score': float(sentiment_analysis['combined_score'] or 0),
             'overall_sentiment': str(sentiment_analysis['overall_sentiment']),
+            'text_description': str(sentiment_description),
             'vader_compound': float(vader_scores['compound'] or 0),
             'bert_score': float(sentiment_analysis['bert_score'] or 0),
             'gemini_explanation': str(sentiment_analysis.get('gemini_explanation', 'N/A')),

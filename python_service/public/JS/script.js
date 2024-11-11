@@ -75,6 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.querySelector(".hamburger");
   const navbarLinks = document.querySelector(".navbar-links");
   const analyzeButton = document.getElementById("analyzeButton");
+  const popupOverlay = document.getElementById("popupOverlay");
+  const submitAnalysisType = document.getElementById("submitAnalysisType");
 
   hamburger.addEventListener("click", () => {
     navbarLinks.classList.toggle("active");
@@ -82,12 +84,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // Prevent default Enter behavior
-      analyzeButton.click();
+      if (popupOverlay.style.display === "flex") {
+        event.preventDefault(); // Prevent default Enter behavior
+        submitAnalysisType.click();
+      } else {
+        event.preventDefault();
+        analyzeButton.click();
+      }
     }
   });
 
-  /* hidden temorarily due to issues
+  /* Custom cursor hidden temorarily due to issues
   // Check if the device is a PC
   if (window.matchMedia("(pointer: fine)").matches) {
     // Show the cursor
