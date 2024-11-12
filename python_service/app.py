@@ -274,10 +274,8 @@ def combine_sentiment_scores(vader_scores, bert_score, text):
     try:
         model = genai.GenerativeModel("gemini-1.5-flash")
         if SELECTED_ANALYSIS_TYPE == "normal-sentiment":
-            app.logger.info("normal-sentiment")
             prompt = f"Explain the following text in a concise and informative manner, considering its sentiment: {text}"
         elif SELECTED_ANALYSIS_TYPE == "feedback-sentiment":
-            app.logger.info("feedback-sentiment")
             feedback_text = 'Analyze the following feedback text: ' if 'feedback' in text.lower() else 'Explain the following text in a concise and informative manner, considering its sentiment:'
             prompt = f"""
             {feedback_text} {text}
