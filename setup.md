@@ -18,7 +18,7 @@ Before installing SentiAnalyz, ensure you have the following:
 - pip (Python package installer)
 - Git (for cloning the repository)
 
-## Automatic Setup
+## Setup
 
 1. Run the setup script:
 
@@ -36,38 +36,6 @@ Before installing SentiAnalyz, ensure you have the following:
      source .venv/bin/activate
      ```
 3. [Run the application](#running-the-application)
-
-## Manual Setup
-
-1. Create and activate a virtual environment:
-
-   - Windows:
-     ```bash
-     python -m venv .venv
-     .venv\Scripts\activate
-     ```
-   - macOS/Linux:
-     ```bash
-     python3 -m venv .venv
-     source .venv/bin/activate
-     ```
-2. Upgrade package managers:
-
-   ```bash
-   python -m pip install --upgrade pip setuptools wheel
-   ```
-3. Install dependencies:
-
-   - Using requirements.txt:
-     ```bash
-     pip install -r requirements.txt
-     ```
-   - Manual installation:
-     ```bash
-     pip install -q -U flask flask-cors python-dotenv flask-limiter flask-socketio torch transformers vaderSentiment "numpy<2" scikit-learn pandas google-generativeai nltk requests
-     ```
-4. Set up environment variables:
-   Create a `.env` file in the project root or rename the example env to `.env` and make the required changes.
 
 ## Running the Application
 

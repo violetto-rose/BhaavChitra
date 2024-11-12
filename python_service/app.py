@@ -15,55 +15,8 @@ import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from nltk import pos_tag
 from collections import Counter
 import re
-import time
-
-def download_nltk_data():
-    """
-    Download required NLTK data with improved error handling and retries.
-    """
-    required_packages = [
-        'punkt',
-        'stopwords',
-        'wordnet',
-        'averaged_perceptron_tagger'
-    ]
-    
-    max_retries = 3
-    retry_delay = 2  # seconds
-    
-    for package in required_packages:
-        for attempt in range(max_retries):
-            try:
-                # Check if the package is already downloaded
-                nltk.data.find(
-                    f'tokenizers/{package}' if package == 'punkt' 
-                    else f'corpora/{package}' if package in ['stopwords', 'wordnet']
-                    else f'taggers/{package}'
-                )
-                print(f"Package {package} is already downloaded")
-                break
-            except LookupError:
-                print(f"Downloading {package}...")
-                try:
-                    nltk.download(package, quiet=True)
-                    print(f"Successfully downloaded {package}")
-                    break
-                except Exception as e:
-                    if attempt == max_retries - 1:
-                        print(f"Failed to download {package} after {max_retries} attempts: {str(e)}")
-                        raise
-                    print(f"Attempt {attempt + 1} failed, retrying in {retry_delay} seconds...")
-                    time.sleep(retry_delay)
-
-# Initialize NLTK downloads with error handling
-try:
-    download_nltk_data()
-except Exception as e:
-    print(f"Error initializing NLTK data: {str(e)}")
-    # Continue starting the application with degraded NLP capabilities
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:5000"}})
@@ -73,6 +26,9 @@ socketio = SocketIO(app, cors_allowed_origins="http://127.0.0.1:5000")
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
+nltk_data_path = os.getenv('NLTK_DATA_PATH', 'nltk_data')
+if nltk_data_path:
+    nltk.data.path.append(nltk_data_path)
 
 # Set up logging
 log_formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')

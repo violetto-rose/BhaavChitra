@@ -370,9 +370,12 @@ async function analyzeSentimentWithRetry() {
 document.addEventListener("DOMContentLoaded", function () {
   const popupOverlay = document.getElementById("popupOverlay");
   const submitButton = document.getElementById("submitAnalysisType");
+  const analyzeButton = document.getElementById("analyzeButton");
 
   // Show popup on load
   popupOverlay.style.display = "flex";
+
+  let analysisType = null;
 
   submitButton.addEventListener("click", () => {
     const selectedOption = document.querySelector(
@@ -391,26 +394,29 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         console.log("Analysis type set:", data.analysis_type);
+        analysisType = data.analysis_type;
 
         // Hide popup
         popupOverlay.style.display = "none";
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  });
 
-        const text = document.getElementById("textInput").value;
+  analyzeButton.addEventListener("click", () => {
+    const text = textInput.value.trim();
 
-        fetch("/analyze", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ text: text }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Analysis result:", data);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+    fetch("/analyze", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: text, analysis_type: analysisType }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Analysis result:", data);
       })
       .catch((error) => {
         console.error("Error:", error);
