@@ -1,4 +1,3 @@
-
 # SentiAnalyz - Installation and Use Guide
 
 ## Table of Contents
@@ -84,6 +83,12 @@ If you encounter package conflicts, try:
 
 ```bash
 pip install --upgrade --force-reinstall -r requirements.txt
+```
+
+If you get nltk import error, deactivate the virtual environment by running the below command and run the app
+
+```bash
+deactivate
 ```
 
 ## Optional Extras
