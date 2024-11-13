@@ -33,7 +33,7 @@ function preloadResources() {
 
   const fontLink = document.createElement("link");
   fontLink.href =
-    "https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&family=Rowdies:wght@700&display=swap";
+    "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&family=Red+Hat+Display&family=Rowdies&display=swap";
   fontLink.rel = "stylesheet";
   document.head.appendChild(fontLink);
 }

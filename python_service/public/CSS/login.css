@@ -1,0 +1,349 @@
+@font-face {
+  font-family: "AmesterdamOne";
+  src: url("../@resources/AmsterdamOne.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Red Hat Display", system-ui, -apple-system, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --primary-gradient: linear-gradient(135deg, #373737 0%, #9d9d9d 100%);
+  --container-width: 100%;
+  --max-width: min(550px, 100%);
+  --border-radius: clamp(8px, 3vw, 16px);
+  --spacing-sm: clamp(0.5rem, 2vw, 0.75rem);
+  --spacing-md: clamp(1rem, 3vw, 1.5rem);
+  --spacing-lg: clamp(1.5rem, 4vw, 2.5rem);
+  --font-size-base: clamp(0.875rem, 2vw, 1rem);
+  --font-size-lg: clamp(1.5rem, 4vw, 2rem);
+  --input-height: clamp(48px, 6vh, 56px);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--primary-gradient);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: var(--container-width);
+  height: 80vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: var(--max-width);
+  backdrop-filter: blur(10px);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text p {
+  color: black;
+  margin-bottom: 1rem;
+}
+
+.logo-text {
+  color: black;
+}
+
+.logo-text p {
+  font-family: "AmesterdamOne", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 3rem;
+  padding-top: 1rem;
+}
+
+.subtitle {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem;
+  max-width: calc(var(--max-width) + 3rem);
+}
+
+.subtitle p {
+  font-family: "Rowdies", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 1.5rem;
+}
+
+.subtitle p:last-of-type {
+  text-align: end;
+}
+
+@media (hover: hover) {
+  .login-container:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: var(--spacing-md);
+    margin: auto;
+    border-radius: var(--border-radius);
+  }
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  color: #4a5568;
+  font-weight: 500;
+  font-size: var(--font-size-base);
+}
+
+.form-group input {
+  width: 100%;
+  height: var(--input-height);
+  padding: 0 var(--spacing-md);
+  border: 2px solid #e2e8f0;
+  border-radius: calc(var(--border-radius) / 1.5);
+  font-size: var(--font-size-base);
+  transition: all 0.2s ease;
+  background: white;
+}
+
+/* Remove iOS input styles */
+input {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn {
+  width: 100%;
+  height: var(--input-height);
+  border: none;
+  border-radius: calc(var(--border-radius) / 1.5);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-md);
+  touch-action: manipulation;
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+@media (hover: hover) {
+  .btn-primary:hover {
+    box-shadow: 0 5px 15px rgba(112, 112, 112, 0.5);
+  }
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-google {
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  background-color: white;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+}
+
+@media (hover: hover) {
+  .btn-google:hover {
+    background-color: #f8fafc;
+    color: black;
+    border-color: #404040;
+  }
+}
+
+.divider {
+  margin: 10px 0;
+  text-align: center;
+  position: relative;
+  color: #718096;
+  font-size: calc(var(--font-size-base) * 0.9);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.divider::before {
+  left: 0;
+}
+.divider::after {
+  right: 0;
+}
+
+.error-message {
+  color: #e53e3e;
+  font-size: calc(var(--font-size-base) * 0.875);
+  margin-top: var(--spacing-sm);
+  display: none;
+  padding: var(--spacing-sm);
+  border-radius: calc(var(--border-radius) / 2);
+  background-color: #fff5f5;
+  border: 1px solid #fed7d7;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #667eea;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  display: none;
+  font-weight: 500;
+  border-radius: calc(var(--border-radius) / 2);
+  transition: all 0.2s ease;
+  font-size: var(--font-size-base);
+}
+
+@media (hover: hover) {
+  .back-button:hover {
+    background-color: #f7fafc;
+    color: #764ba2;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .btn:active,
+  .back-button:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+}
+
+/* Form animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#emailForm,
+#passwordForm {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Focus outline for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .login-container {
+    background: rgba(30, 30, 30, 0.95);
+  }
+
+  .form-group label {
+    color: #e2e8f0;
+  }
+
+  .form-group input {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .btn-google {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .text p {
+    color: white;
+  }
+
+  .logo-text {
+    color: white;
+  }
+
+  .subtitle {
+    color: white;
+  }
+
+  .divider {
+    color: #e2e8f0;
+  }
+
+  .divider::before,
+  .divider::after {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .back-button {
+    color: #e2e8f0;
+  }
+
+  @media (hover: hover) {
+    .back-button:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
