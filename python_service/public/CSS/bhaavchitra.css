@@ -380,6 +380,10 @@ textarea::placeholder {
   margin: 0;
 }
 
+.toggle-details {
+  font-family: inherit;
+}
+
 .score-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

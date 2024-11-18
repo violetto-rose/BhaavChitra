@@ -131,7 +131,6 @@ function createProgressBar(value, maxValue = 1) {
 function displayLinguisticFeatures(features) {
   const container = document.getElementById("linguistic_features");
 
-  // Basic metrics setup with a "Show more" button
   const sentenceCount = features.sentence_count ?? "N/A";
   const wordCount = features.word_count ?? "N/A";
   const avgSentenceLength = (features.avg_sentence_length || 0).toFixed(2);
@@ -143,7 +142,7 @@ function displayLinguisticFeatures(features) {
       <p><strong>Word Count:</strong> ${wordCount}</p>
       <p><strong>Average Sentence Length:</strong> ${avgSentenceLength}</p>
       <p><strong>Unique Words:</strong> ${uniqueWords}</p>
-      <button id="toggle-details">Stats for nerds</button>
+      <button id="toggle-details" class="toggle-details">Stats for nerds</button>
       <div id="detailed-stats" style="display: none;"></div>
   `;
 
