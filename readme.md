@@ -139,9 +139,9 @@ bhaavchitra/
 
 For commercial and educational use, please note the following:
 
-- **License:**This system is available under the [GNU General Public License v3.0 (GPL-3.0)](https://www.gnu.org/licenses/gpl-3.0.html).
-- **Copyright:**Copyright © **2024** [Manju Madhav V A](https://bit.ly/manjumadhav-xo) and [Nishanth K R](https://github.com/Nishanth1409). All rights reserved.
-- **Where to Find the Product:**The source code and documentation will be available on [GitHub](https://github.com/violetto-rose/BhaavChitra).
+- **License:** This system is available under the [GNU General Public License v3.0 (GPL-3.0)](https://www.gnu.org/licenses/gpl-3.0.html).
+- **Copyright:** Copyright © **2024** [Manju Madhav V A](https://bit.ly/manjumadhav-xo) and [Nishanth K R](https://github.com/Nishanth1409). All rights reserved.
+- **Where to Find the Product:** The source code and documentation will be available on [GitHub](https://github.com/violetto-rose/BhaavChitra).
 - **Contact:**
   For inquiries or support, please contact us via email:
   [manjumadhav.va@gmail.com](mailto:manjumadhav.va@gmail.com) or
