@@ -1,18 +1,39 @@
 /* About styles */
+@font-face {
+  font-family: "Amesterdam-One";
+  src: url("../@resources/Amsterdam-One.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Red-Hat-Display";
+  src: url("../@resources/Red-Hat-Display.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rowdies-Regular";
+  src: url("../@resources/Rowdies-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open-Sans";
+  src: url("../@resources/Open-Sans.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: "Red Hat Display", sans-serif;
+  font-family: "Red-Hat-Display", sans-serif;
   line-height: 1.6;
   background-color: #000000;
   color: #ffffff;
   margin: 0;
   padding: 0;
-}
-
-@font-face {
-  font-family: "AmesterdamOne";
-  src: url("../@resources/AmsterdamOne.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
 }
 
 .content {
@@ -31,7 +52,7 @@ header {
 }
 
 h1 {
-  font-family: Rowdies, sans-serif;
+  font-family: "Rowdies-Regular", sans-serif;
   color: #ff66c4;
 }
 
@@ -51,7 +72,7 @@ p {
 }
 
 .title {
-  font-family: "AmesterdamOne";
+  font-family: "Amesterdam-One";
 }
 
 a.link,

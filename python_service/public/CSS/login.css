@@ -1,6 +1,27 @@
 @font-face {
-  font-family: "AmesterdamOne";
-  src: url("../@resources/AmsterdamOne.ttf") format("truetype");
+  font-family: "Amesterdam-One";
+  src: url("../@resources/Amsterdam-One.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Red-Hat-Display";
+  src: url("../@resources/Red-Hat-Display.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rowdies-Regular";
+  src: url("../@resources/Rowdies-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open-Sans";
+  src: url("../@resources/Open-Sans.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -9,12 +30,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Red Hat Display", system-ui, -apple-system, sans-serif;
+  font-family: "Red-Hat-Display", system-ui, -apple-system, sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
 
 :root {
-  --primary-gradient: linear-gradient(135deg, #373737 0%, #9d9d9d 100%);
+  --primary-gradient: linear-gradient(135deg, #212121 0%, #7d7d7d 100%);
   --container-width: 100%;
   --max-width: min(550px, 100%);
   --border-radius: clamp(8px, 3vw, 16px);
@@ -53,6 +74,7 @@ body {
   backdrop-filter: blur(10px);
   transform: translateY(0);
   transition: all 0.3s ease;
+  z-index: 5;
 }
 
 .text {
@@ -71,11 +93,12 @@ body {
 }
 
 .logo-text p {
-  font-family: "AmesterdamOne", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+  font-family: "Amesterdam-One", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open-Sans", "Helvetica Neue",
     sans-serif;
   font-size: 3rem;
   padding-top: 1rem;
+  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.8);
 }
 
 .subtitle {
@@ -88,8 +111,8 @@ body {
 }
 
 .subtitle p {
-  font-family: "Rowdies", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+  font-family: "Rowdies-Regular", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open-Sans", "Helvetica Neue",
     sans-serif;
   font-size: 1.5rem;
 }
@@ -108,6 +131,7 @@ body {
   .login-container {
     padding: var(--spacing-md);
     margin: auto;
+    width: 90%;
     border-radius: var(--border-radius);
   }
 }
@@ -183,9 +207,8 @@ input {
 }
 
 .btn-google {
-  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Open-Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
   background-color: white;
@@ -226,7 +249,7 @@ input {
   right: 0;
 }
 
-.error-message {
+.errorDisplay {
   color: #e53e3e;
   font-size: calc(var(--font-size-base) * 0.875);
   margin-top: var(--spacing-sm);
@@ -237,37 +260,13 @@ input {
   border: 1px solid #fed7d7;
 }
 
-.back-button {
-  background: none;
-  border: none;
-  color: #667eea;
-  cursor: pointer;
-  padding: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
-  display: none;
-  font-weight: 500;
-  border-radius: calc(var(--border-radius) / 2);
-  transition: all 0.2s ease;
-  font-size: var(--font-size-base);
-}
-
-@media (hover: hover) {
-  .back-button:hover {
-    background-color: #f7fafc;
-    color: #764ba2;
-  }
-}
-
-/* Touch device optimizations */
 @media (hover: none) {
-  .btn:active,
-  .back-button:active {
+  .btn:active {
     opacity: 0.7;
     transform: scale(0.98);
   }
 }
 
-/* Form animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -284,7 +283,7 @@ input {
   animation: fadeIn 0.3s ease-out;
 }
 
-/* Focus outline for accessibility */
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -335,15 +334,5 @@ input {
   .divider::before,
   .divider::after {
     background: rgba(255, 255, 255, 0.1);
-  }
-
-  .back-button {
-    color: #e2e8f0;
-  }
-
-  @media (hover: hover) {
-    .back-button:hover {
-      background-color: rgba(255, 255, 255, 0.05);
-    }
   }
 }

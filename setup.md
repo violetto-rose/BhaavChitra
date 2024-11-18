@@ -3,11 +3,9 @@
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
-- [Automatic Setup](#automatic-setup)
-- [Manual Setup](#manual-setup)
+- [Setup](#Setup)
 - [Running the Application](#running-the-application)
 - [Troubleshooting](#troubleshooting)
-- [Optional Extras](#optional-extras)
 - [Installation Checklist](#installation-checklist)
 
 ## Prerequisites
@@ -57,14 +55,6 @@ If you get nltk import error, deactivate the virtual environment by running the 
 
 ```bash
 deactivate
-```
-
-## Optional Extras
-
-These packages are not usually required:
-
-```bash
-pip install -q -U tqdm eventLet dnspython python-engineio pytest black flake8 pylint colorama psutil
 ```
 
 ## Installation Checklist

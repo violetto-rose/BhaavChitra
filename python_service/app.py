@@ -1,34 +1,41 @@
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from .bert import BertAnalyzer
-import os
-from dotenv import load_dotenv
+from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, session
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-import html
+from flask_cors import CORS
 from flask_socketio import SocketIO
-import logging
-from logging.handlers import RotatingFileHandler
+from dotenv import load_dotenv
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from .bert import BertAnalyzer
 import google.generativeai as genai
+import os
+import re
+import html
 import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from pymongo import MongoClient
+from werkzeug.security import generate_password_hash, check_password_hash
+import logging
+from logging.handlers import RotatingFileHandler
 from collections import Counter
-import re
-
-app = Flask(__name__, static_folder='public', static_url_path='')
-CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:5000"}})
-socketio = SocketIO(app, cors_allowed_origins="http://127.0.0.1:5000")
+from datetime import datetime, timezone
+from bson import ObjectId
 
 # Load environment variables
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
-nltk_data_path = os.getenv('NLTK_DATA_PATH', 'nltk_data')
-if nltk_data_path:
-    nltk.data.path.append(nltk_data_path)
+
+# Flask app setup
+app = Flask(__name__, static_folder='public', static_url_path='')
+app.secret_key = os.getenv("SECRET_KEY")
+
+# MongoDB setup
+client = MongoClient('mongodb://localhost:27017/')
+db = client['bhaavchitra_db']
+users_collection = db['users']
 
 # Set up logging
 log_formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
@@ -54,6 +61,12 @@ app.logger.addHandler(file_handler)
 app.logger.addHandler(console_handler)
 app.logger.setLevel(logging.DEBUG)
 
+# Initialize CORS
+CORS(app, resources={r"/*": {"origins": ["http://127.0.0.1:5000", "http://localhost:5000"]}})
+
+# Initialize SocketIO
+socketio = SocketIO(app, cors_allowed_origins=["http://127.0.0.1:5000", "http://localhost:5000"])
+
 # Socket IO logger
 @socketio.on('connect')
 def handle_connect():
@@ -63,11 +76,90 @@ def handle_connect():
 def handle_disconnect():
     print('Client disconnected')
 
+# Initialize rate limiter
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
+
+# Initialize login manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.session_protection = "strong"
+login_manager.login_view = "login"
+
+class User(UserMixin):
+    def __init__(self, user_data):
+        self.id = str(user_data['_id'])
+        self.email = user_data['email']
+        self.password_hash = user_data.get('password')  # Make password optional
+        self.created_at = user_data.get('created_at', datetime.now(timezone.utc))
+        self.is_google_user = user_data.get('is_google_user', False)
+
+    def check_password(self, password):
+        """Check if the provided password matches the stored hash"""
+        if not self.password_hash:
+            return False
+        return check_password_hash(self.password_hash, password)
+
+    @staticmethod
+    def get_by_id(user_id):
+        """Retrieve a user by their ID"""
+        try:
+            user_data = users_collection.find_one({'_id': ObjectId(user_id)})
+            return User(user_data) if user_data else None
+        except Exception as e:
+            app.logger.error(f"Error retrieving user by ID: {str(e)}")
+            return None
+
+    @staticmethod
+    def get_by_email(email):
+        """Retrieve a user by their email address"""
+        try:
+            user_data = users_collection.find_one({'email': email})
+            return User(user_data) if user_data else None
+        except Exception as e:
+            app.logger.error(f"Error retrieving user by email: {str(e)}")
+            return None
+
+    @staticmethod
+    def get_or_create_dev_user():
+        """Get or create a development user account"""
+        dev_email = "admin@example.com"
+        dev_password = generate_password_hash("admin123")
+        dev_user = users_collection.find_one({'email': dev_email})
+        
+        if not dev_user:
+            dev_user_data = {
+                'email': dev_email,
+                'password': dev_password,
+                'created_at': datetime.now(timezone.utc),
+                'is_google_user': False
+            }
+            result = users_collection.insert_one(dev_user_data)
+            dev_user = users_collection.find_one({'_id': result.inserted_id})
+        
+        return User(dev_user)
+
+    def get_id(self):
+        """Override to return id as string"""
+        return str(self.id)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get_by_id(user_id)
+
 # Initialize analyzers
 vader_analyzer = SentimentIntensityAnalyzer()
 bert_analyzer = BertAnalyzer()
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
+
+# NLTK data path setup
+nltk_data_path = os.getenv('NLTK_DATA_PATH', 'nltk_data')
+if nltk_data_path:
+    nltk.data.path.append(nltk_data_path)
 
 def get_sentiment_description(combined_score, vader_scores, text):
     """Generate a detailed description of the sentiment analysis"""
@@ -249,8 +341,6 @@ def format_markdown_to_html(text):
     
     return formatted_text
 
-SELECTED_ANALYSIS_TYPE = "normal-sentiment"
-
 def combine_sentiment_scores(vader_scores, bert_score, text):
     """Combine VADER and BERT scores with simplified output"""
     # Set default values
@@ -304,19 +394,76 @@ def combine_sentiment_scores(vader_scores, bert_score, text):
         'gemini_explanation': gemini_explanation
     }
 
-# Initialize rate limiter
-limiter = Limiter(
-    app=app,
-    key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"]
-)
+@app.route('/check-email', methods=['POST'])
+def check_email():
+    email = request.json.get('email')
+    user = User.get_by_email(email)
+    return jsonify({'exists': user is not None}), 200
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('bhaavchitra'))
+
+    if request.method == 'POST':
+        data = request.get_json()
+        
+        if data.get('google_login'):
+            dev_user = User.get_or_create_dev_user()
+            if login_user(dev_user, remember=True):
+                session.modified = True
+                return jsonify({'success': True, 'redirect': url_for('bhaavchitra')}), 200
+            return jsonify({'error': 'Login failed'}), 401
+
+        email = data.get('email')
+        password = data.get('password')
+        
+        if not email or not password:
+            return jsonify({'error': 'Email and password are required'}), 400
+
+        user = User.get_by_email(email)
+        
+        if not user:
+            try:
+                hashed_password = generate_password_hash(password)
+                user_data = {
+                    'email': email,
+                    'password': hashed_password,
+                    'created_at': datetime.now(timezone.utc),
+                    'is_google_user': False
+                }
+                result = users_collection.insert_one(user_data)
+                user = User.get_by_id(str(result.inserted_id))
+            except Exception as e:
+                app.logger.error(f"Error creating user: {str(e)}")
+                return jsonify({'error': 'Error creating user'}), 500
+
+        if user and user.check_password(password):
+            if login_user(user, remember=True):
+                session.modified = True
+                return jsonify({'success': True, 'redirect': url_for('bhaavchitra')}), 200
+        
+        return jsonify({'error': 'Invalid email or password'}), 401
+
+    return send_from_directory(app.static_folder, 'login.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    session.clear()
+    return redirect(url_for('login'))
 
 @app.route('/')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
 
+# Update the bhaavchitra route
 @app.route('/bhaavchitra')
+@login_required
 def bhaavchitra():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
     return send_from_directory(app.static_folder, 'bhaavchitra.html')
 
 @app.route('/about')
@@ -458,6 +605,7 @@ def test_bert():
 '''
 
 if __name__ == '__main__':
+    SELECTED_ANALYSIS_TYPE = "normal-sentiment"
     socketio.run(
         app,
         host=os.getenv('HOST', 'localhost'),

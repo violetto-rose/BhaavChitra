@@ -4,6 +4,8 @@ flask-cors
 python-dotenv
 flask-limiter
 flask-socketio
+flask-login
+pymongo
 
 # Machine Learning & Data Science
 torch
@@ -16,20 +18,8 @@ google-generativeai
 nltk
 
 # Connectivity
+werkzeug
 requests
 eventLet
 dnspython
 python-engineio
-
-# Additional Utilities
-colorama
-psutil
-
-# Progress & Utilities
-tqdm
-
-# Optional Development Dependencies
-pytest
-black
-flake8
-pylint

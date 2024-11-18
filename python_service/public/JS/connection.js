@@ -254,6 +254,7 @@ async function analyzeSentimentWithRetry() {
   // Check text length before proceeding
   const lengthCheck = checkTextLength(text);
   if (!text) {
+    console.log("Analysis failed due to empty text");
     resultDiv.innerHTML = "Please enter some text for analysis.";
     return;
   }

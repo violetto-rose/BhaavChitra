@@ -25,12 +25,16 @@
     <title>BhaavChitra - Login</title>
     <link rel="stylesheet" href=CSS/login.css>
     <link rel="stylesheet" href="CSS/common.css" />
+    <link rel="stylesheet" href="CSS/shootingstar.css" />
   </head>
   <body>
     <!-- Loading Screen -->
     <div id="loading-screen">
       <div class="spinner"></div>
     </div>
+
+    <!--Starry background-->
+    <div class="starry-sky" id="backgroundContainer"></div>
 
     <div class="container">
       <div class="logo-text">
@@ -44,8 +48,7 @@
         <div class="text">
           <p>Start using BhaavChitra for yourself or your organization</p>
         </div>
-        <button id="backButton" class="back-button">← Back</button>
-        <button type="button" class="btn btn-google">
+        <button id="googleLoginButton" type="button" class="btn btn-google">
           <svg height="18" width="18" viewBox="0 0 24 24">
             <path
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -69,37 +72,49 @@
 
         <div class="divider">or</div>
 
-        <form id="emailForm">
-          <div class="form-group">
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              required
-            />
-            <div class="error-message" id="emailError"></div>
+        <form id="loginForm">
+          <div id="emailSection">
+            <div class="form-group">
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+              />
+              <div class="errorDisplay" id="emailError"></div>
+            </div>
+            <button
+              type="button"
+              id="continueWithEmail"
+              class="btn btn-primary"
+            >
+              Continue with email
+            </button>
           </div>
-          <button type="submit" class="btn btn-primary">
-            Continue with email
-          </button>
-        </form>
 
-        <form id="passwordForm" style="display: none">
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              required
-            />
-            <div class="error-message" id="passwordError"></div>
+          <div id="passwordSection" style="display: none">
+            <div class="form-group">
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                autocomplete="current-password new-password"
+                required
+              />
+              <div class="errorDisplay" id="passwordError"></div>
+            </div>
+            <button id="signIn" type="submit" class="btn btn-primary">
+              Sign in
+            </button>
           </div>
-          <button type="submit" class="btn btn-primary">Sign in</button>
         </form>
       </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script src="JS/login.js"></script>
     <script src="JS/script.js"></script>
+    <script src="JS/shootingstar.js"></script>
   </body>
 </html>

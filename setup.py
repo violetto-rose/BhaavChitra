@@ -3,9 +3,12 @@ import sys
 import os
 import platform
 import venv
-import os
 import requests
 import zipfile
+import secrets
+from pymongo import MongoClient
+from datetime import datetime, timezone
+from werkzeug.security import generate_password_hash
 
 def print_step(message):
     print(f"\n{'='*80}\n{message}\n{'='*80}")
@@ -50,6 +53,59 @@ def install_requirements():
             print(f"Error during installation: {e}")
             sys.exit(1)
 
+def setup_mongodb():
+    print_step("Setting up MongoDB...")
+    try:
+        # Connect to MongoDB
+        client = MongoClient('mongodb://localhost:27017/')
+        print("✓ Connected to MongoDB successfully")
+
+        # Create or get the database
+        db = client['bhaavchitra_db']
+        print("✓ Database 'bhaavchitra_db' selected")
+
+        # Drop existing collections if they exist
+        if 'users' in db.list_collection_names():
+            db.users.drop()
+            print("✓ Dropped existing users collection")
+
+        # Create users collection
+        users_collection = db['users']
+
+        # Create indexes
+        users_collection.create_index('email', unique=True)
+        users_collection.create_index('password')
+        users_collection.create_index('created_at')
+        users_collection.create_index('is_google_user')
+        print("✓ Created indexes for users collection")
+
+        # Insert a sample user
+        sample_user = {
+            'email': 'admin@example.com',
+            'password': generate_password_hash('admin123'),
+            'created_at': datetime.now(timezone.utc),
+            'is_google_user': False
+        }
+
+        users_collection.insert_one(sample_user)
+        print("✓ Inserted sample admin user with credentials:")
+        print("   Email: admin@example.com")
+        print("   Password: admin123")
+
+        # Verify setup
+        user_count = users_collection.count_documents({})
+        print(f"✓ Users collection contains {user_count} documents")
+        
+        return True
+
+    except Exception as e:
+        print(f"Error setting up MongoDB: {str(e)}")
+        print("Please make sure MongoDB is installed and running on your system")
+        return False
+    finally:
+        client.close()
+        print("✓ MongoDB connection closed")
+
 def download_model():
     print_step("Downloading BERT model...")
     try:
@@ -75,6 +131,7 @@ def download_model():
         sys.exit(1)
 
 def download_nltk_data():
+    print_step("Downloading NLTK data...")
     # Define the URLs for the required NLTK data
     nltk_data_urls = {
         'punkt': 'https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip',
@@ -83,45 +140,37 @@ def download_nltk_data():
         'averaged_perceptron_tagger': 'https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/taggers/averaged_perceptron_tagger.zip',
     }
     
-    # Path to save the downloaded data
     nltk_data_path = 'local_tokenizer/nltk_data'
 
-    # Function to download and extract each file
     def download_and_extract_nltk_data(package_name, url):
-        # Ensure directory structure
         os.makedirs(nltk_data_path, exist_ok=True)
-        
-        # Define download path
         download_path = os.path.join(nltk_data_path, f"{package_name}.zip")
         
-        # Download the package
-        print(f"Downloading {package_name} from {url}...")
+        print(f"Downloading {package_name}...")
         response = requests.get(url)
         with open(download_path, 'wb') as f:
             f.write(response.content)
         print(f"✓ Downloaded {package_name}")
         
-        # Extract the package
-        print(f"Extracting {package_name} to {nltk_data_path}...")
+        print(f"Extracting {package_name}...")
         with zipfile.ZipFile(download_path, 'r') as zip_ref:
             zip_ref.extractall(nltk_data_path)
         print(f"✓ Extracted {package_name}")
         
-        # Remove the zip file after extraction
         os.remove(download_path)
-        print(f"✓ Removed temporary zip file for {package_name}")
+        print(f"✓ Cleaned up {package_name}")
 
-    # Download and extract each required NLTK package
     for package, url in nltk_data_urls.items():
         download_and_extract_nltk_data(package, url)
 
-    print("All required NLTK data has been downloaded and extracted.")
+    print("✓ All NLTK data downloaded and extracted")
 
 def create_env_file():
+    secret_key = secrets.token_hex(32)
     print_step("Creating .env file...")
     if not os.path.exists(".env"):
         with open(".env", "w") as f:
-            f.write("""# Server Configuration
+            f.write(f"""# Server Configuration
 FLASK_APP=python_service/app.py
 FLASK_HOST=localhost
 FLASK_PORT=5000
@@ -136,9 +185,16 @@ MODEL_TIMEOUT=30
 # API KEYS
 OPENAI_API_KEY=
 GEMINI_API_KEY=
+
+# Secret key
+SECRET_KEY={secret_key}
     
 # NLTK Data Path
 NLTK_DATA_PATH=local_tokenizers/nltk_data
+
+# MongoDB Configuration
+MONGODB_URI=mongodb://localhost:27017/
+MONGODB_DB=bhaavchitra_db
 """)
         print("✓ Created .env file")
     else:
@@ -152,16 +208,31 @@ def main():
     setup_virtual_environment()
     install_requirements()
     create_env_file()
+    
+    # Setup MongoDB
+    if not setup_mongodb():
+        print("\nWarning: MongoDB setup failed. Please ensure MongoDB is installed and running.")
+        print("You can still proceed with the rest of the setup.")
+        user_input = input("Do you want to continue with the setup? (y/n): ")
+        if user_input.lower() != 'y':
+            sys.exit(1)
+    
     download_model()
     download_nltk_data()
     
     print_step("Installation completed successfully! 🎉")
+    print("\nInitial admin user credentials:")
+    print("    Email: admin@example.com")
+    print("    Password: admin123")
     print("\nTo activate the virtual environment:")
     if platform.system() == "Windows":
         print("    Run: .venv\\Scripts\\activate")
     else:
         print("    Run: source .venv/bin/activate")
-    print("\nUpdate your .env file if necessary.")
+    print("\nMake sure to:")
+    print("1. Update your .env file with your API keys")
+    print("2. Ensure MongoDB is running")
+    print("3. Change the admin password after first login")
     print("\nTo start the server:")
     print("    Run: flask run")
 

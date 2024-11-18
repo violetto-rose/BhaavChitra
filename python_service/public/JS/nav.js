@@ -26,9 +26,9 @@ function injectNavbar() {
   navbarLinks.classList.add("navbar-links");
 
   const links = [
-    { href: "index.html", text: "Home", id: "home-link" },
-    { href: "bhaavchitra.html", text: "Services", id: "services-link" },
-    { href: "about.html", text: "About", id: "about-link" },
+    { href: "/", text: "Home", id: "home-link" },
+    { href: "/bhaavchitra", text: "Services", id: "services-link" },
+    { href: "/about", text: "About", id: "about-link" },
   ];
 
   links.forEach((linkData) => {
@@ -44,6 +44,26 @@ function injectNavbar() {
     li.appendChild(a);
     navbarLinks.appendChild(li);
   });
+
+  const currentPage = window.location.pathname.split("/").pop();
+  if ((currentPage === "bhaavchitra.html" || currentPage === "bhaavchitra") || (currentPage === "about.html" || currentPage === "about")) {
+    const logoutLi = document.createElement("li");
+    logoutLi.classList.add("nav-item");
+
+    const logoutLink = document.createElement("a");
+    logoutLink.href = "/logout";
+    logoutLink.classList.add("nav-link");
+    logoutLink.id = "logout-link";
+    logoutLink.textContent = "Logout";
+
+    logoutLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      logoutUser();
+    });
+
+    logoutLi.appendChild(logoutLink);
+    navbarLinks.appendChild(logoutLi);
+  }
 
   const hamburger = document.createElement("div");
   hamburger.classList.add("hamburger");
@@ -79,7 +99,11 @@ function setActiveLink() {
 
   navLinks.forEach((link) => {
     const linkPage = link.getAttribute("href").split("/").pop();
-    if (linkPage === currentPage) {
+    if (
+      linkPage === currentPage ||
+      (currentPage === "" && linkPage === "index.html") ||
+      (currentPage === "bhaavchitra" && linkPage === "bhaavchitra.html")
+    ) {
       link.classList.add("active");
     }
   });
@@ -90,7 +114,26 @@ function setNavbarWidth() {
   const currentPage = window.location.pathname.split("/").pop();
   const navbar = document.querySelector(".navbar");
   // Set navbar width for this page due to flex display
-  navbar.style.width = currentPage === "bhaavchitra.html" ? "100%" : "";
+  navbar.style.width =
+    currentPage === "bhaavchitra.html" || currentPage === "bhaavchitra"
+      ? "100%"
+      : "";
+}
+
+// Logout function
+function logoutUser() {
+  fetch("/logout", {
+    method: "GET",
+    credentials: "same-origin",
+  })
+    .then(() => {
+      sessionStorage.clear();
+      window.location.href = "/login";
+    })
+    .catch((error) => {
+      console.error("Logout error:", error);
+      window.location.href = "/login"; // Redirect to login even if there's an error
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
