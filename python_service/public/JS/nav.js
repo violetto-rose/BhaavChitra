@@ -43,10 +43,22 @@ function injectNavbar() {
 
     li.appendChild(a);
     navbarLinks.appendChild(li);
+
+    if (linkData.id === "services-link") {
+      a.addEventListener("click", (event) => {
+        event.preventDefault();
+        servicesRedirect();
+      });
+    }
   });
 
   const currentPage = window.location.pathname.split("/").pop();
-  if ((currentPage === "bhaavchitra.html" || currentPage === "bhaavchitra") || (currentPage === "about.html" || currentPage === "about")) {
+  if (
+    currentPage === "bhaavchitra.html" ||
+    currentPage === "bhaavchitra" ||
+    currentPage === "about.html" ||
+    currentPage === "about"
+  ) {
     const logoutLi = document.createElement("li");
     logoutLi.classList.add("nav-item");
 
@@ -76,7 +88,6 @@ function injectNavbar() {
     hamburger.setAttribute("aria-expanded", isActive);
   });
 
-  // Close menu on background click
   document.addEventListener("click", (event) => {
     if (!navbar.contains(event.target) && !hamburger.contains(event.target)) {
       navbarLinks.classList.remove("active");
@@ -120,6 +131,19 @@ function setNavbarWidth() {
       : "";
 }
 
+//Redirect function
+function servicesRedirect() {
+  fetch("/bhaavchitra", {
+    method: "GET",
+  })
+    .then(() => {
+      window.location.href = "/bhaavchitra";
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 // Logout function
 function logoutUser() {
   fetch("/logout", {
@@ -132,7 +156,7 @@ function logoutUser() {
     })
     .catch((error) => {
       console.error("Logout error:", error);
-      window.location.href = "/login"; // Redirect to login even if there's an error
+      window.location.href = "/login";
     });
 }
 

@@ -47,7 +47,6 @@ function updateCharacterCount() {
   const textInput = document.getElementById("textInput");
   const charCountDiv = document.getElementById("charCount");
 
-  // Create character count div if it doesn't exist
   if (!charCountDiv) {
     const countDisplay = document.createElement("div");
     countDisplay.id = "charCount";
@@ -59,14 +58,12 @@ function updateCharacterCount() {
 
   charCount.innerHTML = lengthCheck.message;
 
-  // Update classes based on validity
   if (!lengthCheck.isValid) {
     charCount.classList.add("exceeded");
   } else {
     charCount.classList.remove("exceeded");
   }
 
-  // Update analyze button state
   const analyzeButton = document.getElementById("analyzeButton");
   analyzeButton.disabled = !lengthCheck.isValid;
   analyzeButton.title = lengthCheck.isValid
@@ -110,9 +107,8 @@ function getSentimentColor(sentiment) {
   }
 }
 
-// Create progress bar with safe number handling
+// Create progress bar
 function createProgressBar(value, maxValue = 1) {
-  // Ensure value is a number and handle invalid inputs
   const numericValue = Number(value) || 0;
   const percentage = (numericValue / maxValue) * 100;
   const color =
@@ -187,7 +183,7 @@ function displayLinguisticFeatures(features) {
     Pronouns: ["PRP", "PRP$", "WP", "WP$"],
   };
 
-  // Categorize POS tags
+  // Categorized POS tags
   const categorizedPOS = {};
   Object.keys(posCategories).forEach((category) => {
     categorizedPOS[category] = {};
@@ -198,7 +194,7 @@ function displayLinguisticFeatures(features) {
     });
   });
 
-  // Create detailed stats table for each POS category
+  // Detailed stats table for each POS category
   let detailedHTML = "<h4>POS Distribution (Detailed)</h4>";
   Object.entries(categorizedPOS).forEach(([category, tags]) => {
     detailedHTML += `<h4>${category}</h4><table class="stats-table">`;
@@ -227,14 +223,13 @@ function displayLinguisticFeatures(features) {
     detailedHTML += "</tbody></table>";
   });
 
-  // Attach the toggle functionality
   document
     .getElementById("toggle-details")
     .addEventListener("click", function () {
       const detailedStats = document.getElementById("detailed-stats");
       if (detailedStats.style.display === "none") {
         detailedStats.style.display = "block";
-        detailedStats.innerHTML = detailedHTML; // Set detailed content when shown
+        detailedStats.innerHTML = detailedHTML;
         this.textContent = "Show less";
       } else {
         detailedStats.style.display = "none";
@@ -250,7 +245,6 @@ async function analyzeSentimentWithRetry() {
   const text = document.getElementById("textInput").value.trim();
   const resultDiv = document.getElementById("result");
 
-  // Check text length before proceeding
   const lengthCheck = checkTextLength(text);
   if (!text) {
     console.log("Analysis failed due to empty text");
@@ -296,9 +290,7 @@ async function analyzeSentimentWithRetry() {
       }
 
       const data = await response.json();
-      console.log("Received data:", data);
 
-      // Ensure all required properties exist with safe defaults
       const safeData = {
         text_description: data.text_description || "No description available",
         overall_sentiment: data.overall_sentiment || "Neutral",
@@ -371,7 +363,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const popupOverlay = document.getElementById("popupOverlay");
   const submitButton = document.getElementById("submitAnalysisType");
 
-  // Show popup on load
   popupOverlay.style.display = "flex";
 
   submitButton.addEventListener("click", () => {
@@ -380,7 +371,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     const selectedOptionId = selectedOption.id;
 
-    // Set the global analysis type
     fetch("/set-analysis-type", {
       method: "POST",
       headers: {
@@ -392,7 +382,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         console.log("Analysis type set:", data.analysis_type);
 
-        // Hide popup
         popupOverlay.style.display = "none";
       })
       .catch((error) => {
@@ -400,14 +389,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 
-  // Add input event listener for real-time character count
   const textInput = document.getElementById("textInput");
   textInput.addEventListener("input", debounce(updateCharacterCount, 100));
 
-  // Initial character count update
   updateCharacterCount();
 
-  // Attach analyze button event listener
   document
     .getElementById("analyzeButton")
     .addEventListener("click", debounce(analyzeSentimentWithRetry, 300));

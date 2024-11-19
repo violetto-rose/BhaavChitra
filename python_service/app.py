@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, session
+from flask import Flask, request, jsonify, send_from_directory, redirect, url_for, session
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -93,7 +93,7 @@ class User(UserMixin):
     def __init__(self, user_data):
         self.id = str(user_data['_id'])
         self.email = user_data['email']
-        self.password_hash = user_data.get('password')  # Make password optional
+        self.password_hash = user_data.get('password')
         self.created_at = user_data.get('created_at', datetime.now(timezone.utc))
         self.is_google_user = user_data.get('is_google_user', False)
 
@@ -213,9 +213,8 @@ def get_sentiment_description(combined_score, vader_scores, text):
     return f"{base_sentiment}.{emotional_content}{text_characteristics} (Combined score: {combined_score:.2f})"
 
 def preprocess_text(text):
-    """
-    Preprocess text with various NLP techniques
-    """
+    """Preprocess text with various NLP techniques"""
+    
     # Convert to lowercase
     text = text.lower()
     
@@ -248,9 +247,8 @@ def custom_sort_key(item):
     return ('1', tag)
 
 def extract_features(text):
-    """
-    Extract linguistic features from text
-    """
+    """Extract linguistic features from text"""
+    
     # Sentence tokenization
     sentences = sent_tokenize(text)
     
@@ -398,7 +396,7 @@ def combine_sentiment_scores(vader_scores, bert_score, text):
 def check_email():
     email = request.json.get('email')
     user = User.get_by_email(email)
-    return jsonify({'exists': user is not None}), 200
+    return jsonify({'user_exists': user is not None}), 200
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -458,7 +456,6 @@ def logout():
 def index():
     return send_from_directory(app.static_folder, 'index.html')
 
-# Update the bhaavchitra route
 @app.route('/bhaavchitra')
 @login_required
 def bhaavchitra():

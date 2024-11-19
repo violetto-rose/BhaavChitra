@@ -56,30 +56,24 @@ def install_requirements():
 def setup_mongodb():
     print_step("Setting up MongoDB...")
     try:
-        # Connect to MongoDB
         client = MongoClient('mongodb://localhost:27017/')
         print("✓ Connected to MongoDB successfully")
 
-        # Create or get the database
         db = client['bhaavchitra_db']
         print("✓ Database 'bhaavchitra_db' selected")
 
-        # Drop existing collections if they exist
         if 'users' in db.list_collection_names():
             db.users.drop()
             print("✓ Dropped existing users collection")
 
-        # Create users collection
         users_collection = db['users']
 
-        # Create indexes
         users_collection.create_index('email', unique=True)
         users_collection.create_index('password')
         users_collection.create_index('created_at')
         users_collection.create_index('is_google_user')
         print("✓ Created indexes for users collection")
 
-        # Insert a sample user
         sample_user = {
             'email': 'admin@example.com',
             'password': generate_password_hash('admin123'),
@@ -92,7 +86,6 @@ def setup_mongodb():
         print("   Email: admin@example.com")
         print("   Password: admin123")
 
-        # Verify setup
         user_count = users_collection.count_documents({})
         print(f"✓ Users collection contains {user_count} documents")
         
@@ -113,7 +106,6 @@ def download_model():
         
         model_name = "nlptown/bert-base-multilingual-uncased-sentiment"
         
-        # Create directories
         os.makedirs("local_model", exist_ok=True)
         os.makedirs("local_tokenizer", exist_ok=True)
         
@@ -208,8 +200,7 @@ def main():
     setup_virtual_environment()
     install_requirements()
     create_env_file()
-    
-    # Setup MongoDB
+
     if not setup_mongodb():
         print("\nWarning: MongoDB setup failed. Please ensure MongoDB is installed and running.")
         print("You can still proceed with the rest of the setup.")

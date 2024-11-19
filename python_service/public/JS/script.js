@@ -43,12 +43,9 @@ async function ensureFontsLoaded() {
 window.addEventListener("load", async function () {
   preloadResources();
 
-  // Show content and hide spinner after fonts or timeout
   const fontsLoaded = await ensureFontsLoaded();
-
   const loadingScreen = document.getElementById("loading-screen");
 
-  // Hide the loading spinner and show content if font loaded
   if (fontsLoaded) {
     loadingScreen.style.display = "none";
     document.body.style.display = "";
@@ -58,7 +55,7 @@ window.addEventListener("load", async function () {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  // const cursor = document.getElementById("circularcursor");
+  /*const cursor = document.getElementById("circularcursor");*/
 
   const currentPage = window.location.pathname.split("/").pop();
 
@@ -88,15 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
 
       switch (currentPage) {
-        case "index.html":
-          window.location.href = "bhaavchitra.html";
-          break;
-
         case "":
-          window.location.href = "bhaavchitra.html";
+          window.location.href = "/bhaavchitra";
           break;
 
-        case "bhaavchitra.html":
+        case "bhaavchitra":
           const overlayDisplay = popupOverlay
             ? window.getComputedStyle(popupOverlay).display
             : "none";
@@ -108,7 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           break;
 
-        case "login.html":
+        case "login":
+        case "login?next=%2Fbhaavchitra":
           if (passwordSection && passwordSection.style.display === "none") {
             continueWithEmail?.click();
           } else {

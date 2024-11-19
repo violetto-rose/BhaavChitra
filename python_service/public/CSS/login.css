@@ -35,7 +35,7 @@
 }
 
 :root {
-  --primary-gradient: linear-gradient(135deg, #212121 0%, #7d7d7d 100%);
+  --primary-gradient: linear-gradient(135deg, #000000 0%, #383838 100%);
   --container-width: 100%;
   --max-width: min(550px, 100%);
   --border-radius: clamp(8px, 3vw, 16px);
@@ -65,7 +65,7 @@ body {
 }
 
 .login-container {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(10, 10, 10, 0.95);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -84,12 +84,12 @@ body {
 }
 
 .text p {
-  color: black;
+  color: white;
   margin-bottom: 1rem;
 }
 
 .logo-text {
-  color: black;
+  color: white;
 }
 
 .logo-text p {
@@ -102,7 +102,7 @@ body {
 }
 
 .subtitle {
-  color: black;
+  color: white;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -144,7 +144,7 @@ body {
 .form-group label {
   display: block;
   margin-bottom: var(--spacing-sm);
-  color: #4a5568;
+  color: #e2e8f0;
   font-weight: 500;
   font-size: var(--font-size-base);
 }
@@ -157,7 +157,9 @@ body {
   border-radius: calc(var(--border-radius) / 1.5);
   font-size: var(--font-size-base);
   transition: all 0.2s ease;
-  background: white;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 /* Remove iOS input styles */
@@ -180,30 +182,72 @@ input {
   font-size: var(--font-size-base);
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease;
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-  padding: 0 var(--spacing-md);
   touch-action: manipulation;
 }
 
 .btn-primary {
-  background: var(--primary-gradient);
-  color: white;
+  cursor: pointer;
+  border-radius: 16px;
+  border: none;
+  padding: 2px;
+  background: radial-gradient(circle 90px at 90% -10%, #ffffff, #181b1b);
+  position: relative;
+  width: 100%;
+  margin-top: var(--spacing-md);
+  height: auto;
+  display: block;
 }
 
-@media (hover: hover) {
-  .btn-primary:hover {
-    box-shadow: 0 5px 15px rgba(112, 112, 112, 0.5);
-  }
+.blob1 {
+  position: absolute;
+  width: 70px;
+  height: 100%;
+  border-radius: 16px;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(
+    circle 60px at 0% 100%,
+    #3fe9ff,
+    #0000ff80,
+    transparent
+  );
+  box-shadow: -10px 10px 30px #0051ff2d;
+  z-index: 6;
 }
 
-.btn-primary:active {
-  transform: translateY(0);
+.inner {
+  padding: 14px 25px;
+  border-radius: 14px;
+  color: #fff;
+  z-index: 7;
+  position: relative;
+  background: radial-gradient(circle 120px at 90% -130%, #777777, #0f1111);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 14px;
+  background: radial-gradient(
+    circle 60px at 0% 100%,
+    #00e1ff1a,
+    #0000ff11,
+    transparent
+  );
+  position: absolute;
 }
 
 .btn-google {
@@ -211,9 +255,9 @@ input {
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
-  background-color: white;
-  color: #4a5568;
-  border: 2px solid #e2e8f0;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
 }
 
 @media (hover: hover) {
@@ -228,7 +272,7 @@ input {
   margin: 10px 0;
   text-align: center;
   position: relative;
-  color: #718096;
+  color: #e2e8f0;
   font-size: calc(var(--font-size-base) * 0.9);
 }
 
@@ -239,7 +283,7 @@ input {
   top: 50%;
   width: 45%;
   height: 1px;
-  background: #e2e8f0;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .divider::before {
@@ -283,7 +327,6 @@ input {
   animation: fadeIn 0.3s ease-out;
 }
 
-
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -293,46 +336,38 @@ input {
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .login-container {
-    background: rgba(30, 30, 30, 0.95);
-  }
+/* Parent text container */
+.signing-in {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
 
-  .form-group label {
-    color: #e2e8f0;
-  }
+/* Animating dots */
+.dots-animation {
+  display: inline-block;
+  position: absolute;
+}
 
-  .form-group input {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: white;
-  }
+.dots-animation::after {
+  content: "";
+  animation: dots 2s steps(4, end) infinite;
+}
 
-  .btn-google {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: white;
+@keyframes dots {
+  0% {
+    content: ".";
   }
-
-  .text p {
-    color: white;
+  25% {
+    content: "..";
   }
-
-  .logo-text {
-    color: white;
+  50% {
+    content: "...";
   }
-
-  .subtitle {
-    color: white;
+  75% {
+    content: "....";
   }
-
-  .divider {
-    color: #e2e8f0;
-  }
-
-  .divider::before,
-  .divider::after {
-    background: rgba(255, 255, 255, 0.1);
+  100% {
+    content: ".";
   }
 }
