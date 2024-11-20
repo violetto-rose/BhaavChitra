@@ -2,10 +2,6 @@ import subprocess
 import sys
 import os
 import platform
-import venv
-import requests
-import zipfile
-import secrets
 
 def print_step(message):
     print(f"\n{'='*80}\n{message}\n{'='*80}")
@@ -22,6 +18,7 @@ def check_python_version():
     print(f"✓ Python version {current_version[0]}.{current_version[1]} meets requirements")
 
 def setup_virtual_environment():
+    import venv
     print_step("Setting up virtual environment...")
     venv_path = ".venv"
     
@@ -124,6 +121,9 @@ def download_model():
         sys.exit(1)
 
 def download_nltk_data():
+    import requests
+    import zipfile
+
     print_step("Downloading NLTK data...")
     # Define the URLs for the required NLTK data
     nltk_data_urls = {
@@ -159,6 +159,7 @@ def download_nltk_data():
     print("✓ All NLTK data downloaded and extracted")
 
 def create_env_file():
+    import secrets
     secret_key = secrets.token_hex(32)
     print_step("Creating .env file...")
     if not os.path.exists(".env"):
