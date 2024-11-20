@@ -4,7 +4,7 @@ flask-cors
 python-dotenv
 flask-limiter
 flask-socketio
-flask-login
+flask_login
 pymongo
 
 # Machine Learning & Data Science

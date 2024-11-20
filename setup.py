@@ -6,9 +6,6 @@ import venv
 import requests
 import zipfile
 import secrets
-from pymongo import MongoClient
-from datetime import datetime, timezone
-from werkzeug.security import generate_password_hash
 
 def print_step(message):
     print(f"\n{'='*80}\n{message}\n{'='*80}")
@@ -56,6 +53,10 @@ def install_requirements():
 def setup_mongodb():
     print_step("Setting up MongoDB...")
     try:
+        from pymongo import MongoClient
+        from datetime import datetime, timezone
+        from werkzeug.security import generate_password_hash
+        
         client = MongoClient('mongodb://localhost:27017/')
         print("✓ Connected to MongoDB successfully")
 
