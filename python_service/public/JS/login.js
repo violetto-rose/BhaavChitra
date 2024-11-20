@@ -114,6 +114,14 @@ continueWithEmail.addEventListener("click", async (e) => {
       const userExists =
         data.user_exists !== undefined ? data.user_exists : false;
 
+      if (userExists) {
+        signIn.querySelector(".inner").textContent = "Sign In";
+        signIn.setAttribute("data-user-exists", "true");
+      } else {
+        signIn.querySelector(".inner").textContent = "Sign Up";
+        signIn.setAttribute("data-user-exists", "false");
+      }
+
       emailSection.style.display = "none";
       passwordSection.style.display = "block";
       passwordInput.focus();
@@ -263,7 +271,6 @@ loginForm.addEventListener("submit", async (e) => {
     showError("Network error. Please try again.");
   } finally {
     signIn.disabled = false;
-    signIn.textContent = "Sign in";
   }
 });
 
