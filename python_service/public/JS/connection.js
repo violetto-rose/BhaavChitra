@@ -319,10 +319,6 @@ async function analyzeSentimentWithRetry() {
           
           <div class="score-grid">
             <div class="score-item">
-              <label>Combined Score</label>
-              ${createProgressBar(safeData.combined_score)}
-            </div>
-            <div class="score-item">
               <label>VADER Score</label>
               ${createProgressBar(safeData.vader_compound)}
             </div>
@@ -330,6 +326,10 @@ async function analyzeSentimentWithRetry() {
               <label>BERT Score</label>
               ${createProgressBar(safeData.bert_score)}
             </div>
+          </div>
+          <div class="score-item">
+            <label>Combined Score</label>
+            ${createProgressBar(safeData.combined_score)}
           </div>
 
           <div class="gemini-analysis">
