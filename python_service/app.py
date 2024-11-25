@@ -33,8 +33,10 @@ app = Flask(__name__, static_folder='public', static_url_path='')
 app.secret_key = os.getenv("SECRET_KEY")
 
 # MongoDB setup
-client = MongoClient('mongodb://localhost:27017/')
-db = client['bhaavchitra_db']
+MONGODB_URI = os.getenv("MONGODB_URI")
+MONGODB_DB = os.getenv("MONGODB_DB")
+client = MongoClient(MONGODB_URI)
+db = client[MONGODB_DB]
 users_collection = db['users']
 
 # Set up logging

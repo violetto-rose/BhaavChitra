@@ -15,7 +15,7 @@ function injectNavbar() {
   navbarContainer.classList.add("navbar-container");
 
   const logoLink = document.createElement("a");
-  logoLink.href = "index.html";
+  logoLink.href = "/";
   logoLink.classList.add("navbar-logo");
   const logoImg = document.createElement("img");
   logoImg.src = "./@resources/logo-dark.svg";
@@ -55,9 +55,7 @@ function injectNavbar() {
   const currentPage = window.location.pathname.split("/").pop();
   if (
     currentPage === "bhaavchitra.html" ||
-    currentPage === "bhaavchitra" ||
-    currentPage === "about.html" ||
-    currentPage === "about"
+    currentPage === "bhaavchitra"
   ) {
     const logoutLi = document.createElement("li");
     logoutLi.classList.add("nav-item");
