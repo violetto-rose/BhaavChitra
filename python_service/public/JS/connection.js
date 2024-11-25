@@ -362,6 +362,7 @@ async function analyzeSentimentWithRetry() {
 document.addEventListener("DOMContentLoaded", function () {
   const popupOverlay = document.getElementById("popupOverlay");
   const submitButton = document.getElementById("submitAnalysisType");
+  const analysisType = document.getElementById("analysisType");
 
   popupOverlay.style.display = "flex";
 
@@ -370,6 +371,18 @@ document.addEventListener("DOMContentLoaded", function () {
       'input[name="analysis-type"]:checked'
     );
     const selectedOptionId = selectedOption.id;
+
+    let displayText = "";
+
+    if (selectedOptionId === "normal-sentiment") {
+      displayText = "Normal sentiment analysis";
+    } else if (selectedOptionId === "feedback-sentiment") {
+      displayText = "Feedback analysis";
+    } else {
+      displayText = "Analysis type not selected or error occurred";
+    }
+
+    analysisType.innerHTML = analysisType.innerHTML.replace('None', displayText);
 
     fetch("/set-analysis-type", {
       method: "POST",

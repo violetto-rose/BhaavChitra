@@ -289,6 +289,23 @@ textarea::placeholder {
   transition: color 0.3s ease;
 }
 
+.data {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#analysisType {
+  align-self: flex-start;
+  font-size: 14px;
+  padding: 2px 0 0 20px;
+  color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+  font-family: inherit;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
 #charCount {
   align-self: flex-end;
   font-size: 14px;
