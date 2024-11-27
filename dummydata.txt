@@ -24,5 +24,3 @@ Feedback analysis:
     "Not worth the money." "Honestly, I regret buying Apple HomeHub. It’s pricey for what it offers. The voice assistant often misunderstands commands, and it feels underpowered compared to competitors. I wouldn’t recommend it unless it sees some major upgrades."
 
     "Solid performance, minor issues." "Overall, I’m happy with Apple HomeHub. It does a decent job with day-to-day commands, and the design is sleek. Occasionally, it disconnects from Wi-Fi, but restarting it usually helps. For anyone looking for an entry-level smart assistant, this is a fair option."
-
-    "Highly recommend for tech enthusiasts!" "Apple HomeHub offers an impressive range of integrations with other smart devices. I love how I can control my entire home with it, from lights to the thermostat. Setup was easy, and it's reliable for the most part."
