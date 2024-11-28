@@ -17,3 +17,25 @@ function displayHtml() {
 
 window.addEventListener("resize", displayHtml);
 displayHtml();
+
+// Video control functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const videoControl = document.getElementById('video-control');
+  const video = document.querySelector('.background-video');
+  const pauseIcon = document.querySelector('.pause-icon');
+  const playIcon = document.querySelector('.play-icon');
+
+  if (videoControl && video) {
+    videoControl.addEventListener('click', function() {
+      if (video.paused) {
+        video.play();
+        pauseIcon.style.display = 'block';
+        playIcon.style.display = 'none';
+      } else {
+        video.pause();
+        pauseIcon.style.display = 'none';
+        playIcon.style.display = 'block';
+      }
+    });
+  }
+});

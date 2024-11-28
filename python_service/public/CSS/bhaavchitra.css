@@ -358,7 +358,7 @@ textarea::placeholder {
   position: absolute;
   inset: 0;
   border-radius: 50px;
-  padding: 2px;
+  padding: 3px;
   background: linear-gradient(90deg, #004aad, #cb6ce6, #004aad);
   background-size: 200% 100%;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
