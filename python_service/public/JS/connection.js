@@ -334,7 +334,7 @@ async function analyzeSentimentWithRetry() {
 
           <div class="gemini-analysis">
             <h3>Detailed Analysis</h3>
-            <p>${safeData.gemini_explanation}</p>
+            ${safeData.gemini_explanation}
           </div>
 
           <div id="linguistic_features"></div>
