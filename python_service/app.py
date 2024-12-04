@@ -581,6 +581,21 @@ def health_check():
         'nltk_status': 'loaded'
     })
 
+@app.after_request
+def add_copyright_footer(response):
+    if response.direct_passthrough:
+        return response
+
+    if response.content_type.startswith('text/html'):
+        content = response.get_data(as_text=True)
+        footer = '<footer id="copyright-footer" class="copyright-footer"><p>Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.</p></footer>'
+        if '<div id="content-wrapper">' in content:
+            content = content.replace('</div><!--content-wrapper-->', '</div><!--content-wrapper-->' + footer)
+        else:
+            content = content.replace('</body>', f'{footer}</body>')
+    
+    return response
+
 '''
 #test routes for vader
 @app.route('/test-vader', methods=['GET'])

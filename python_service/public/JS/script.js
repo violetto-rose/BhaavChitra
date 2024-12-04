@@ -176,3 +176,40 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   */
 });
+
+function ensureCopyrightFooter() {
+  let footer = document.getElementById("copyright-footer");
+  if (!footer) {
+    footer = document.createElement("footer");
+    footer.id = "copyright-footer";
+    footer.className = "copyright-footer";
+    footer.innerHTML =
+      "<p>Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.</p>";
+    document.body.appendChild(footer);
+  }
+
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (mutation.type === "childList") {
+        const removedNodes = mutation.removedNodes;
+        for (let node of removedNodes) {
+          if (node.id === "copyright-footer") {
+            document.body.appendChild(footer);
+          }
+        }
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true });
+
+  setInterval(() => {
+    footer.style.display = "block";
+    footer.style.visibility = "visible";
+    footer.style.opacity = "1";
+  }, 100);
+}
+
+document.addEventListener("DOMContentLoaded", ensureCopyrightFooter);
+
+setInterval(ensureCopyrightFooter, 1000);

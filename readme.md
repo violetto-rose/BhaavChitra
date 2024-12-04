@@ -40,22 +40,29 @@ Before installing BhaavChitra, ensure you have the following:
    ```bash
    python setup.py
    ```
-3. **Activate the Virtual Environment**:
+3. **Manual Setup** (Skip to [Configuration](#4-configuration) if you've run the setup script):
 
-   - **Windows**:
-     ```bash
-     .venv\Scripts\activate
-     ```
-   - **macOS/Linux**:
-     ```bash
-     source .venv/bin/activate
-     ```
-4. **Install Required Dependencies**:
+   1. **Activate the Virtual Environment**:
+      - **Windows:**
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-5. **Configure Environment Variables**:
+        ```bash
+        .venv\Scripts\activate
+        ```
+
+      - **macOS/Linux**:
+
+        ```bash
+        source .venv/bin/activate
+        ```
+
+   2. **Install Required Dependencies**:
+
+      ```bash
+      pip install -r requirements.txt
+      ```
+
+4. **Configuration**:
+
    Use the `.env` file in the root directory for environment configuration. Refer to `.env-guide` for details on how to set up:
 
    - MongoDB URI

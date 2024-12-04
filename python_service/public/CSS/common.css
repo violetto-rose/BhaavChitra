@@ -50,7 +50,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .spinner {
@@ -60,6 +60,14 @@ button {
   border-top: 5px solid #ff66c4;
   border-radius: 50%;
   animation: spin 1s linear infinite, colorChange 2s ease-in-out infinite;
+}
+
+.copyright-footer {
+  flex-shrink: 0;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
 }
 
 @keyframes spin {
