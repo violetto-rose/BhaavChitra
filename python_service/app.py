@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory, redirect, url_for, session
+from flask import Flask, render_template_string, request, jsonify, send_from_directory, redirect, url_for, session
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -580,20 +580,40 @@ def health_check():
         'vader_model': 'loaded' if vader_analyzer else 'not_loaded',
         'nltk_status': 'loaded'
     })
+    
+@app.errorhandler(404)
+def page_not_found(e):
+    with open(os.path.join(app.static_folder, 'error.html'), 'r') as file:
+        content = file.read()
+    return render_template_string(content, error_code=404), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    with open(os.path.join(app.static_folder, 'error.html'), 'r') as file:
+        content = file.read()
+    return render_template_string(content, error_code=500), 500
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    with open(os.path.join(app.static_folder, 'error.html'), 'r') as file:
+        content = file.read()
+    return render_template_string(content, error_code=500), 500
 
 @app.after_request
 def add_copyright_footer(response):
     if response.direct_passthrough:
         return response
-
-    if response.content_type.startswith('text/html'):
+    
+    if response.content_type and response.content_type.startswith('text/html'):
         content = response.get_data(as_text=True)
         footer = '<footer id="copyright-footer" class="copyright-footer"><p>Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.</p></footer>'
-        if '<div id="content-wrapper">' in content:
-            content = content.replace('</div><!--content-wrapper-->', '</div><!--content-wrapper-->' + footer)
+        
+        if '<div id="content">' in content:
+            content = content.replace('</div><!--content-->', '</div><!--content-->' + footer)
         else:
             content = content.replace('</body>', f'{footer}</body>')
-    
+        
+        response.set_data(content)
     return response
 
 '''
@@ -616,6 +636,11 @@ def test_bert():
     except Exception as e:
         print(f"BERT Analyzer error: {e}")
         return jsonify({"error": str(e)}), 500
+
+# This route is for testing the 500 error page
+@app.route('/500')
+def test_500():
+    raise Exception("This is a test 500 error")
 '''
 
 if __name__ == '__main__':

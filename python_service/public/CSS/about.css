@@ -28,7 +28,8 @@
 }
 
 body {
-  font-family: "Red-Hat-Display", sans-serif;
+  font-family: "Red-Hat-Display", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue";
   line-height: 1.6;
   background-color: #000000;
   color: #ffffff;
@@ -54,7 +55,8 @@ header {
 }
 
 h1 {
-  font-family: "Rowdies-Regular", sans-serif;
+  font-family: "Rowdies-Regular", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue";
   color: #ff66c4;
 }
 
@@ -74,7 +76,8 @@ p {
 }
 
 .title {
-  font-family: "Amesterdam-One";
+  font-family: "Amesterdam-One", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue";
 }
 
 a.link,

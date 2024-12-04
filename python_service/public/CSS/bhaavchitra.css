@@ -74,7 +74,8 @@ body {
 }
 
 .title {
-  font-family: "Rowdies-Regular", sans-serif;
+  font-family: "Rowdies-Regular", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue";
   font-size: var(--fs);
   font-weight: 700;
   letter-spacing: var(--ls);
@@ -175,7 +176,8 @@ body {
 }
 
 .popup-content button {
-  font-family: "Red-Hat-Display", sans-serif;
+  font-family: "Red-Hat-Display", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue";
   margin-top: 20px;
   padding: 10px 20px;
   border: none;
@@ -273,7 +275,8 @@ body {
 
 input::placeholder,
 textarea::placeholder {
-  font-family: "Red-Hat-Display", sans-serif;
+  font-family: "Red-Hat-Display", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue";
 }
 
 .search-bar input {
@@ -285,7 +288,8 @@ textarea::placeholder {
   background-color: rgba(255, 255, 255, 0.1);
   color: white;
   font-size: 16px;
-  font-family: "Red-Hat-Display", sans-serif;
+  font-family: "Red-Hat-Display", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue";
   transition: color 0.3s ease;
 }
 
@@ -338,7 +342,8 @@ textarea::placeholder {
 */
 
 .analyze-button {
-  font-family: "Red-Hat-Display", sans-serif;
+  font-family: "Red-Hat-Display", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue";
   margin: 1rem;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;

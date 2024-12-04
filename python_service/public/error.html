@@ -1,0 +1,63 @@
+<!-- error.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error - BhaavChitra</title>
+    <link rel="stylesheet" href="CSS/common.css" />
+    <link rel="stylesheet" href="CSS/error.css" />
+    <link rel="stylesheet" href="CSS/shootingstar.css" />
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="spinner"></div>
+    </div>
+
+    <div id="content">
+      <!-- Starry background -->
+      <div class="starry-sky" id="backgroundContainer"></div>
+
+      <div class="error-container">
+        <p id="error-code"></p>
+        <p id="error-title"></p>
+        <p id="error-message"></p>
+        <a href="/" class="btn-primary">Return to Home</a>
+      </div>
+    </div>
+
+    <footer id="copyright-footer" class="copyright-footer">
+      <p>
+        Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.
+      </p>
+    </footer>
+
+    <script src="JS/script.js"></script>
+    <script src="JS/shootingstar.js"></script>
+    <script>
+      // Set error message based on status code
+      const errorCode = "{{ error_code }}";
+      const errorCodeElement = document.getElementById("error-code");
+      const errorTitleElement = document.getElementById("error-title");
+      const errorMessageElement = document.getElementById("error-message");
+
+      if (errorCode === "404") {
+        errorCodeElement.textContent = errorCode;
+        errorTitleElement.textContent = "Page Not Found";
+        errorMessageElement.textContent =
+          "We couldn't find the page you were looking for. It might have been removed, renamed, or doesn't exist.";
+      } else if (errorCode === "500") {
+        errorCodeElement.textContent = errorCode;
+        errorTitleElement.textContent = "Internal Server Error";
+        errorMessageElement.textContent =
+          "We're experiencing some technical difficulties. Our team has been notified and is working on the issue.";
+      } else {
+        errorCodeElement.textContent = errorCode;
+        errorTitleElement.textContent = "Something went wrong";
+        errorMessageElement.textContent =
+          "We're sorry, but it seems there was an issue processing your request.";
+      }
+    </script>
+  </body>
+</html>
