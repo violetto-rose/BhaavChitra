@@ -605,6 +605,10 @@ def handle_exception(e):
         content = file.read()
     return render_template_string(content, error_code=500), 500
 
+@app.route('/500')
+def test_500():
+    raise Exception("This is a test 500 error")
+
 @app.after_request
 def add_copyright_footer(response):
     if response.direct_passthrough:
@@ -614,10 +618,11 @@ def add_copyright_footer(response):
         content = response.get_data(as_text=True)
         footer = '<footer id="copyright-footer" class="copyright-footer"><p>Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.</p></footer>'
         
-        if '<div id="content">' in content:
-            content = content.replace('</div><!--content-->', '</div><!--content-->' + footer)
-        else:
-            content = content.replace('</body>', f'{footer}</body>')
+        if '<footer id="copyright-footer"' not in content:
+            if '<div id="content">' in content:
+                content = content.replace('</div><!--content-->', '</div><!--content-->' + footer)
+            else:
+                content = content.replace('</body>', f'{footer}</body>')
         
         response.set_data(content)
     return response
@@ -642,12 +647,10 @@ def test_bert():
     except Exception as e:
         print(f"BERT Analyzer error: {e}")
         return jsonify({"error": str(e)}), 500
-
-# This route is for testing the 500 error page
-@app.route('/500')
-def test_500():
-    raise Exception("This is a test 500 error")
 '''
+# This route is for testing the 500 error page
+
+''''''
 
 if __name__ == '__main__':
     SELECTED_ANALYSIS_TYPE = "normal-sentiment"

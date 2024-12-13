@@ -65,6 +65,19 @@
         transform: translateY(-5px);
         box-shadow: 0 10px 20px rgba(100, 255, 218, 0.2);
       }
+      #about {
+        position: relative;
+      }
+      #about::after {
+        content: "";
+        position: absolute;
+        width: 1rem;
+        background-color: #0a192f;
+        top: 0;
+        bottom: 0;
+        left: 80%;
+        margin-left: -3px;
+      }
       #logo {
         width: 100%;
         height: auto;
@@ -234,8 +247,7 @@
           </div>
           <div
             class="col-lg-6"
-            data-aos="fade-left"
-            style="background-color: black"
+            style="background-color: #0a192f; border-radius: 0.5rem; z-index: 1;"
           >
             <img
               class="img-fluid rounded"
