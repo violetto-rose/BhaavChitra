@@ -73,14 +73,9 @@
       <div class="row justify-content-center w-100">
         <div class="col-md-8 text-center">
           <div data-aos="fade-up">
-            <h1 class="error-code text-gradient" id="errorCode">404</h1>
-            <h2 class="error-message mb-4" id="errorMessage">
-              Oops! Page not found
-            </h2>
-            <p class="error-description" id="errorDescription">
-              The page you are looking for might have been removed, had its name
-              changed, or is temporarily unavailable.
-            </p>
+            <h1 class="error-code text-gradient" id="error-code"></h1>
+            <h2 class="error-message mb-4" id="error-title"></h2>
+            <p class="error-description" id="error-message"></p>
             <a href="/" class="btn btn-custom btn-lg">Go to Homepage</a>
           </div>
         </div>
@@ -122,29 +117,28 @@
         },
       });
 
-      // Function to get URL parameters
-      function getUrlParameter(name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
-        var results = regex.exec(location.search);
-        return results === null
-          ? ""
-          : decodeURIComponent(results[1].replace(/\+/g, " "));
+      // Set error message based on status code
+      const errorCode = "{{ error_code }}";
+      const errorCodeElement = document.getElementById("error-code");
+      const errorTitleElement = document.getElementById("error-title");
+      const errorMessageElement = document.getElementById("error-message");
+
+      if (errorCode === "404") {
+        errorCodeElement.textContent = errorCode;
+        errorTitleElement.textContent = "Page Not Found";
+        errorMessageElement.textContent =
+          "We couldn't find the page you were looking for. It might have been removed, renamed, or doesn't exist.";
+      } else if (errorCode === "500") {
+        errorCodeElement.textContent = errorCode;
+        errorTitleElement.textContent = "Internal Server Error";
+        errorMessageElement.textContent =
+          "We're experiencing some technical difficulties. Our team has been notified and is working on the issue.";
+      } else {
+        errorCodeElement.textContent = errorCode;
+        errorTitleElement.textContent = "Something went wrong";
+        errorMessageElement.textContent =
+          "We're sorry, but it seems there was an issue processing your request.";
       }
-
-      // Set error details based on URL parameters
-      window.onload = function () {
-        var errorCode = getUrlParameter("code") || "404";
-        var errorMessage = getUrlParameter("message") || "Oops! Page not found";
-        var errorDescription =
-          getUrlParameter("description") ||
-          "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.";
-
-        document.getElementById("errorCode").textContent = errorCode;
-        document.getElementById("errorMessage").textContent = errorMessage;
-        document.getElementById("errorDescription").textContent =
-          errorDescription;
-      };
 
       function ensureCopyrightFooter() {
         let footer = document.getElementById("copyright-footer");
