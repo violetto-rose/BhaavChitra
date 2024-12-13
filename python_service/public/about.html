@@ -3,203 +3,446 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About BhaavChitra - Sentiment Analysis Tool</title>
     <link
-      rel="icon"
-      type="image/png"
-      href="@resources/favicon/favicon-96x96.png"
-      sizes="96x96"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
     />
     <link
-      rel="icon"
-      type="image/svg+xml"
-      href="@resources/favicon/favicon.svg"
-    />
-    <link rel="shortcut icon" href="@resources/favicon/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="@resources/favicon/apple-touch-icon.png"
-    />
-    <meta name="apple-mobile-web-app-title" content="BhaavChitra" />
-    <link rel="manifest" href="@resources/favicon/site.webmanifest" />
-    <title>About BhaavChitra - Our Story and Technology</title>
-    <meta
-      name="description"
-      content="Learn about BhaavChitra's advanced sentiment analysis technology, our mission, and the team behind this innovative AI-powered tool."
-    />
-    <meta
-      name="keywords"
-      content="about BhaavChitra, sentiment analysis technology, VADER, BERT, team, mission, AI tool"
-    />
-    <meta name="author" content="Manju Madhav V A, Nishanth K R" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://github.com/violetto-rose/BhaavChitra/about"
-    />
-    <meta
-      property="og:title"
-      content="About BhaavChitra - Advanced Sentiment Analysis Tool"
-    />
-    <meta
-      property="og:description"
-      content="Discover the technology and team behind BhaavChitra's innovative sentiment analysis platform."
-    />
-    <meta property="og:image" content="@resources/og-image.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="About BhaavChitra - Our Story" />
-    <meta
-      name="twitter:description"
-      content="Discover the technology and team behind BhaavChitra's innovative sentiment analysis platform."
-    />
-    <meta name="twitter:image" content="@resources/logo.png" />
-    <meta name="theme-color" content="#212121" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="BhaavChitra" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
     />
     <link rel="stylesheet" href="CSS/about.css" />
-    <link rel="stylesheet" href="CSS/common.css" />
-    <link rel="stylesheet" href="CSS/shootingstar.css" />
+    <style>
+      body {
+        background-color: #0a192f;
+        color: #e0e0e0;
+      }
+      .bg-custom-dark {
+        background-color: #0a192f;
+      }
+      .text-custom-light {
+        color: #e0e0e0;
+      }
+      .btn-custom {
+        background-color: #64ffda;
+        border-color: #64ffda;
+        color: #0a192f;
+        transition: all 0.3s ease;
+      }
+      .btn-custom:hover {
+        background-color: #0a192f;
+        border-color: #64ffda;
+        color: #64ffda;
+      }
+      .card {
+        background-color: rgba(10, 25, 47, 0.8);
+        border: 1px solid #64ffda;
+        transition: all 0.3s ease;
+        color: white;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(100, 255, 218, 0.2);
+      }
+      .text-gradient {
+        background: linear-gradient(45deg, #64ffda, #6a98f0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+      .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .timeline::after {
+        content: "";
+        position: absolute;
+        width: 6px;
+        background-color: #64ffda;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+      }
+      .timeline-item {
+        padding: 10px 40px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+      }
+      .timeline-item::after {
+        content: "";
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        right: -12.5px;
+        background-color: #0a192f;
+        border: 4px solid #64ffda;
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+      }
+      .left {
+        left: 0;
+      }
+      .right {
+        left: 50%;
+      }
+      .left::before {
+        content: " ";
+        height: 0;
+        position: absolute;
+        top: 22px;
+        width: 0;
+        z-index: 1;
+        right: 30px;
+        border: medium solid #64ffda;
+        border-width: 10px 0 10px 10px;
+        border-color: transparent transparent transparent #64ffda;
+      }
+      .right::before {
+        content: " ";
+        height: 0;
+        position: absolute;
+        top: 22px;
+        width: 0;
+        z-index: 1;
+        left: 30px;
+        border: medium solid #64ffda;
+        border-width: 10px 10px 10px 0;
+        border-color: transparent #64ffda transparent transparent;
+      }
+      .right::after {
+        left: -12.5px;
+      }
+      @media screen and (max-width: 600px) {
+        .timeline::after {
+          left: 31px;
+        }
+        .timeline-item {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+        .timeline-item::before {
+          left: 60px;
+          border: medium solid #64ffda;
+          border-width: 10px 10px 10px 0;
+          border-color: transparent #64ffda transparent transparent;
+        }
+        .left::after,
+        .right::after {
+          left: 15px;
+        }
+        .right {
+          left: 0%;
+        }
+      }
+      #emotionsImage {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+      .copyright-footer {
+        flex-shrink: 0;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-      <div class="spinner"></div>
-    </div>
+    <div id="particles-js"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">BhaavChitra</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a id="authLink" class="nav-link" href="/login">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <!--Cursor-->
-    <div id="circularcursor" class="normal"></div>
+    <div class="container mt-5">
+      <h1 class="text-center mb-5 text-gradient">About BhaavChitra</h1>
 
-    <div class="content">
-      <!--Starry background-->
-      <div class="starry-sky" id="backgroundContainer"></div>
-      <header>
-        <h1>About the Project</h1>
-      </header>
-      <section>
-        <h2>Project Description</h2>
-        <p>
-          <span class="title">BhaavChitra</span> is a comprehensive tool
-          designed to analyze emotions and sentiments expressed in various forms
-          of text, including social media posts, reviews, and general text
-          entries. By leveraging advanced algorithms, this system provides users
-          with insights into the overall sentiment of the input text.
-        </p>
-      </section>
-      <section>
-        <h2>Key Points</h2>
-        <ul>
-          <li>Real-time sentiment analysis for text and social media.</li>
-          <li>User-friendly interface for easy interaction.</li>
-          <li>Supports hashtags and URLs for social media analysis.</li>
-        </ul>
-      </section>
-      <section>
-        <h2>What It Uses</h2>
-        <p>The system utilizes the following technologies:</p>
-        <ul>
-          <li>
-            VADER and BERT for sentiment analysis of social media and text.
-          </li>
-          <li>JavaScript for frontend interactivity.</li>
-          <li>Flask and Python for backend processing.</li>
-        </ul>
-      </section>
-      <section>
-        <h2>What It Can Do</h2>
-        <ul>
-          <li>Analyze sentiment in real-time for various text inputs.</li>
-          <li>Provide detailed sentiment scores and interpretations.</li>
-          <li>Handle social media content, including hashtags and URLs.</li>
-          <li>Offer insights into the emotional tone of the text.</li>
-        </ul>
-      </section>
-      <section>
-        <h2>How It Is Better</h2>
-        <p>
-          The Text and Social Media Sentiment Analysis System offers several
-          advantages over existing solutions:
-        </p>
-        <ul>
-          <li>
-            Integrated analysis of both direct text and social media content.
-          </li>
-          <li>User-driven insights with real-time feedback.</li>
-          <li>Cost-effective and efficient for personal and commercial use.</li>
-        </ul>
-      </section>
-      <section>
-        <h2>General Note</h2>
-        <p>For commercial and educational use, please note the following:</p>
-        <ul>
-          <li>
-            <strong>License:</strong> This system is available under the GNU
-            General Public License v3.0 (GPL-3.0).
-          </li>
-          <li>
-            <strong>Copyright:</strong> Copyright © <year>2024</year>
-            <a class="link" href="https://bit.ly/manjumadhav-xo" target="_blank"
-              >Manju Madhav V A</a
-            >
-            and
-            <a
-              class="link"
-              href="https://github.com/Nishanth1409"
-              target="_blank"
-              >Nishanth K R</a
-            >. All rights reserved.
-          </li>
-          <li>
-            <strong>Where to Find the Product:</strong> The source code and
-            documentation will be available on GitHub.
-          </li>
-          <li>
-            <strong>Contact:</strong> For inquiries or support, please contact
-            us via email at
-            <a class="link" href="mailto:manjumadhav.va@gmail.com"
-              >manjumadhav.va@gmail.com</a
-            >
-            or
-            <a class="link" href="mailto:nishanthkr1409@gmail.com"
-              >nishanthkr1409@gmail.com</a
-            >.
-          </li>
-        </ul>
-      </section>
-      <section class="small">
-        <p>
-          <em>BhaavChitra - A sentiment analysis tool.</em>
-          Copyright © <year>2024</year> Manju Madhav V A and Nishanth K R.
-        </p>
-        <p>
-          This program is free software: you can redistribute it and/or modify
-          it under the terms of the GNU General Public License as published by
-          the Free Software Foundation, either version 3 of the License, or any
-          later version.
-        </p>
-        <p>
-          This program is distributed in the hope that it will be useful, but
-          WITHOUT ANY WARRANTY; without even the implied warranty of
-          MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-          <a class="link" href="https://www.gnu.org/licenses/"
-            >GNU General Public License</a
+      <div class="row mb-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <h2 class="mb-4">Our Mission</h2>
+          <p>
+            BhaavChitra aims to revolutionize the way we understand and
+            interpret textual emotions. By harnessing the power of advanced AI
+            and machine learning algorithms, we provide accurate and nuanced
+            sentiment analysis for businesses, researchers, and individuals
+            alike.
+          </p>
+          <p>
+            Our goal is to bridge the gap between raw text data and meaningful
+            insights, enabling our users to make informed decisions based on the
+            emotional landscape of their audience.
+          </p>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <img
+            src="@resources/emotions.png"
+            alt="BhaavChitra Mission"
+            class="img-fluid rounded"
+            id="emotionsImage"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <h2 class="text-center mb-4">Our Journey</h2>
+          <div class="timeline">
+            <div class="timeline-item left" data-aos="fade-right">
+              <div class="card">
+                <div class="card-body" style="color: white">
+                  <h5 class="card-title">2022</h5>
+                  <p class="card-text">
+                    BhaavChitra project inception. Initial research and
+                    development begin.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-item right" data-aos="fade-left">
+              <div class="card">
+                <div class="card-body" style="color: white">
+                  <h5 class="card-title">2023</h5>
+                  <p class="card-text">
+                    First prototype developed. Beta testing with select
+                    partners.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-item left" data-aos="fade-right">
+              <div class="card">
+                <div class="card-body" style="color: white">
+                  <h5 class="card-title">2024</h5>
+                  <p class="card-text">
+                    Official launch of BhaavChitra. Continuous improvements and
+                    feature additions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <h2 class="text-center mb-4">Meet the Team</h2>
+          <div class="row">
+            <div class="col-md-6 mb-4" data-aos="fade-up">
+              <div class="card">
+                <div class="card-body text-center">
+                  <img
+                    src="https://avatars.githubusercontent.com/violetto-rose"
+                    alt="Manju Madhav V A"
+                    class="rounded-circle mb-3"
+                    width="150"
+                  />
+                  <h5 class="card-title">Manju Madhav V A</h5>
+                  <h6 class="card-subtitle mb-2">Founder & Developer</h6>
+                  <a
+                    href="https://www.linkedin.com/in/manjumadhav-va"
+                    target="_blank"
+                    class="btn btn-outline-light btn-sm"
+                    >LinkedIn</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+              <div class="card">
+                <div class="card-body text-center">
+                  <img
+                    src="https://avatars.githubusercontent.com/Nishanth1409"
+                    alt="Nishanth K R"
+                    class="rounded-circle mb-3"
+                    width="150"
+                  />
+                  <h5 class="card-title">Nishanth K R</h5>
+                  <h6 class="card-subtitle mb-2">Co-founder & Designer</h6>
+                  <a
+                    href="https://www.linkedin.com/in/nishanth-k-r-107895258"
+                    target="_blank"
+                    class="btn btn-outline-light btn-sm"
+                    >LinkedIn</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-lg-6 order-lg-2" data-aos="fade-left">
+          <h2 class="mb-4">Our Technology</h2>
+          <p>
+            BhaavChitra utilizes cutting-edge natural language processing (NLP)
+            techniques and deep learning models to analyze and interpret textual
+            data. Our proprietary algorithms are trained on vast datasets,
+            enabling accurate sentiment analysis across various domains and
+            languages.
+          </p>
+          <p>Key features of our technology include:</p>
+          <ul>
+            <li>Multi-language support</li>
+            <li>Context-aware analysis</li>
+            <li>Real-time processing</li>
+            <li>Customizable sentiment models</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 order-lg-1" data-aos="fade-right">
+          <img
+            src="@resources/wordcloud.jpg"
+            alt="BhaavChitra Technology"
+            class="img-fluid rounded"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12 text-center">
+          <h2 class="mb-4">Get Started with BhaavChitra</h2>
+          <p>
+            Experience the power of advanced sentiment analysis for yourself.
+          </p>
+          <a href="/bhaavchitra" class="btn btn-custom btn-lg"
+            >Try BhaavChitra Now</a
           >
-          for more details.
-        </p>
-      </section>
+        </div>
+      </div>
     </div>
-    <footer id="copyright-footer" class="copyright-footer">
-      <p>
-        Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.
-      </p>
+
+    <footer id="copyright-footer" class="py-4 bg-custom-dark mt-5">
+      <div class="container">
+        <p class="m-0 text-center text-custom-light">
+          Copyright &copy; 2024 BhaavChitra (Manju Madhav V A and Nishanth K R).
+          All rights reserved.
+        </p>
+      </div>
     </footer>
 
-    <script src="JS/nav.js"></script>
-    <script src="JS/script.js"></script>
-    <script src="JS/shootingstar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: "#ffffff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5, random: true },
+          size: { value: 3, random: true },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: "none",
+            random: true,
+            out_mode: "out",
+          },
+        },
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const authLink = document.getElementById("authLink");
+
+        fetch("/check_login")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.logged_in) {
+              authLink.textContent = "Logout";
+              authLink.href = "/logout";
+            } else {
+              authLink.textContent = "Login";
+              authLink.href = "/login";
+            }
+          })
+          .catch((error) => {
+            console.error("Error checking login status:", error);
+          });
+      });
+
+      function ensureCopyrightFooter() {
+        let footer = document.getElementById("copyright-footer");
+        if (!footer) {
+          footer = document.createElement("footer");
+          footer.id = "copyright-footer";
+          footer.className = "copyright-footer";
+          footer.innerHTML =
+            "<p>Copyright &copy; 2024 BhaavChitra (Manju Madhav V A and Nishanth K R). All rights reserved.</p>";
+          document.body.appendChild(footer);
+        }
+
+        const observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            if (mutation.type === "childList") {
+              const removedNodes = mutation.removedNodes;
+              for (let node of removedNodes) {
+                if (node.id === "copyright-footer") {
+                  document.body.appendChild(footer);
+                }
+              }
+            }
+          });
+        });
+
+        observer.observe(document.body, { childList: true });
+
+        setInterval(() => {
+          footer.style.display = "block";
+          footer.style.visibility = "visible";
+          footer.style.opacity = "1";
+        }, 100);
+      }
+
+      document.addEventListener("DOMContentLoaded", ensureCopyrightFooter);
+
+      setInterval(ensureCopyrightFooter, 1000);
+    </script>
   </body>
 </html>

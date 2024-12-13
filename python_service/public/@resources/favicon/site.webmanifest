@@ -1,8 +1,6 @@
 {
-  "name": "BhaavChitra - AI-Powered Sentiment Analysis",
+  "name": "BhaavChitra",
   "short_name": "BhaavChitra",
-  "description": "Advanced sentiment analysis tool for analyzing emotions in text and social media content",
-  "start_url": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -17,17 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#212121",
-  "background_color": "#000000",
-  "display": "standalone",
-  "orientation": "portrait",
-  "categories": ["productivity", "utilities", "artificial intelligence"],
-  "screenshots": [],
-  "shortcuts": [
-    {
-      "name": "Start Analysis",
-      "url": "/bhaavchitra",
-      "description": "Start a new sentiment analysis"
-    }
-  ]
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
 }

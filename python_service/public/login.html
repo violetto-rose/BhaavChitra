@@ -3,126 +3,345 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      type="image/png"
-      href="@resources/favicon/favicon-96x96.png"
-      sizes="96x96"
-    />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="@resources/favicon/favicon.svg"
-    />
-    <link rel="shortcut icon" href="@resources/favicon/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="@resources/favicon/apple-touch-icon.png"
-    />
-    <meta name="apple-mobile-web-app-title" content="BhaavChitra" />
-    <link rel="manifest" href="@resources/favicon/site.webmanifest" />
     <title>BhaavChitra - Login</title>
-    <link rel="stylesheet" href=CSS/login.css>
-    <link rel="stylesheet" href="CSS/common.css" />
-    <link rel="stylesheet" href="CSS/shootingstar.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+    <style>
+      body {
+        background-color: #0a192f;
+        color: #e0e0e0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .bg-custom-dark {
+        background-color: #0a192f;
+      }
+      .text-custom-light {
+        color: #e0e0e0;
+      }
+      .btn-custom {
+        background-color: #64ffda;
+        border-color: #64ffda;
+        color: #0a192f;
+        transition: all 0.3s ease;
+      }
+      .btn-custom:hover {
+        background-color: #0a192f;
+        border-color: #64ffda;
+        color: #64ffda;
+      }
+      .card {
+        background-color: rgba(10, 25, 47, 0.8);
+        border: 1px solid #64ffda;
+        backdrop-filter: blur(10px);
+      }
+      .form-control {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: #64ffda;
+        color: #e0e0e0;
+      }
+      .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: #64ffda;
+        box-shadow: 0 0 0 0.25rem rgba(100, 255, 218, 0.25);
+        color: #e0e0e0;
+      }
+      .text-gradient {
+        background: linear-gradient(45deg, #64ffda, #6a98f0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+      .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #64ffda;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #64ffda;
+      }
+      .divider::before {
+        margin-right: 0.25em;
+      }
+      .divider::after {
+        margin-left: 0.25em;
+      }
+      .copyright-footer {
+        flex-shrink: 0;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-      <div class="spinner"></div>
-    </div>
-
-    <!--Starry background-->
-    <div class="starry-sky" id="backgroundContainer"></div>
-
-    <div class="container">
-      <div class="logo-text">
-        <p>BhaavChitra</p>
-      </div>
-      <div class="subtitle">
-        <p>Curious about sentiments in a text?</p>
-        <p>Lets analyze it together.</p>
-      </div>
-      <div class="login-container">
-        <div class="text">
-          <p>Start using BhaavChitra for yourself or your organization</p>
-        </div>
-        <button id="googleLoginButton" type="button" class="btn btn-google">
-          <svg height="18" width="18" viewBox="0 0 24 24">
-            <path
-              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-              fill="#4285F4"
-            />
-            <path
-              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-              fill="#34A853"
-            />
-            <path
-              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-              fill="#FBBC05"
-            />
-            <path
-              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-              fill="#EA4335"
-            />
-          </svg>
-          Continue with Google
+    <div id="particles-js"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/"
+          ><img
+            src="@resources/logo-dark.svg"
+            alt="BhaavChitra"
+            style="height: 100px"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a id="authLink" class="nav-link active" href="/login">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-        <div class="divider">or</div>
-
-        <form id="loginForm">
-          <div id="emailSection">
-            <div class="form-group">
-              <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                autocomplete="email"
-                required
-              />
-              <div class="errorDisplay" id="emailError"></div>
-            </div>
+    <div
+      class="container flex-grow-1 d-flex align-items-center justify-content-center"
+    >
+      <div class="row justify-content-center w-100">
+        <div class="col-md-6 col-lg-4">
+          <div class="card p-4" data-aos="fade-up">
+            <h2 class="text-center mb-4 text-gradient">Login to BhaavChitra</h2>
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="email" class="form-label" style="color: white"
+                  >Email address</label
+                >
+                <input type="email" class="form-control" id="email" required />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label" style="color: white"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-custom w-100 mb-3">
+                Login
+              </button>
+            </form>
+            <div class="divider mb-3">OR</div>
             <button
-              type="button"
-              id="continueWithEmail"
-              class="btn btn-primary"
+              id="googleLoginButton"
+              class="btn btn-outline-light w-100"
+              style="
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                align-items: center;
+              "
             >
-              <div class="blob1"></div>
-              <div class="inner">Continue with email</div>
+              <svg height="18" width="18" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              Continue with Google
             </button>
-          </div>
-
-          <div id="passwordSection" style="display: none">
-            <div class="form-group">
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                autocomplete="current-password new-password"
-                required
-              />
-              <div class="errorDisplay" id="passwordError"></div>
+            <div class="mt-3 text-center">
+              <a href="#" class="text-custom-light">Forgot password?</a>
             </div>
-            <div id="errorDisplay" style="display: none"></div>
-            <button id="signIn" type="submit" class="btn btn-primary">
-              <div class="blob1"></div>
-              <div class="inner">Sign In</div>
-            </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-    <footer id="copyright-footer" class="copyright-footer">
-      <p>
-        Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.
-      </p>
+
+    <footer id="copyright-footer" class="py-4 bg-custom-dark mt-auto">
+      <div class="container">
+        <p class="m-0 text-center text-custom-light">
+          Copyright &copy; 2024 BhaavChitra (Manju Madhav V A and Nishanth K R).
+          All rights reserved.
+        </p>
+      </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script src="JS/login.js"></script>
-    <script src="JS/script.js"></script>
-    <script src="JS/shootingstar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: "#ffffff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5, random: true },
+          size: { value: 3, random: true },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: "none",
+            random: true,
+            out_mode: "out",
+          },
+        },
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const authLink = document.getElementById("authLink");
+
+        fetch("/check_login")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.logged_in) {
+              authLink.textContent = "Logout";
+              authLink.href = "/logout";
+            } else {
+              authLink.textContent = "Login";
+              authLink.href = "/login";
+            }
+          })
+          .catch((error) => {
+            console.error("Error checking login status:", error);
+          });
+      });
+
+      // Internal script referencing login.js functionality
+      (function () {
+        function login(email, password) {
+          // Simulating login.js functionality
+          console.log("Logging in with:", email);
+          // Here you would typically make an API call to your backend
+          fetch("/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                console.log("Login successful");
+                window.location.href = "/bhaavchitra";
+              } else {
+                console.error("Login failed:", data.error);
+                alert("Login failed: " + data.error);
+              }
+            })
+            .catch((error) => {
+              console.error("Login error:", error);
+              alert("An error occurred during login. Please try again.");
+            });
+        }
+
+        function googleLogin() {
+          // Simulating Google login functionality
+          console.log("Initiating Google login");
+          // Here you would typically initiate the OAuth flow
+          alert("Google login is not implemented in this demo.");
+        }
+
+        document
+          .getElementById("loginForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            login(email, password);
+          });
+
+        document
+          .getElementById("googleLoginButton")
+          .addEventListener("click", function () {
+            googleLogin();
+          });
+      })();
+
+      function ensureCopyrightFooter() {
+        let footer = document.getElementById("copyright-footer");
+        if (!footer) {
+          footer = document.createElement("footer");
+          footer.id = "copyright-footer";
+          footer.className = "copyright-footer";
+          footer.innerHTML =
+            "<p>Copyright &copy; 2024 BhaavChitra (Manju Madhav V A and Nishanth K R). All rights reserved.</p>";
+          document.body.appendChild(footer);
+        }
+
+        const observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            if (mutation.type === "childList") {
+              const removedNodes = mutation.removedNodes;
+              for (let node of removedNodes) {
+                if (node.id === "copyright-footer") {
+                  document.body.appendChild(footer);
+                }
+              }
+            }
+          });
+        });
+
+        observer.observe(document.body, { childList: true });
+
+        setInterval(() => {
+          footer.style.display = "block";
+          footer.style.visibility = "visible";
+          footer.style.opacity = "1";
+        }, 100);
+      }
+
+      document.addEventListener("DOMContentLoaded", ensureCopyrightFooter);
+
+      setInterval(ensureCopyrightFooter, 1000);
+    </script>
   </body>
 </html>

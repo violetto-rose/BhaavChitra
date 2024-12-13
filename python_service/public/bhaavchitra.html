@@ -3,147 +3,360 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BhaavChitra - Sentiment Analysis</title>
     <link
-      rel="icon"
-      type="image/png"
-      href="@resources/favicon/favicon-96x96.png"
-      sizes="96x96"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
     />
     <link
-      rel="icon"
-      type="image/svg+xml"
-      href="@resources/favicon/favicon.svg"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
     />
-    <link rel="shortcut icon" href="@resources/favicon/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="@resources/favicon/apple-touch-icon.png"
-    />
-    <meta name="apple-mobile-web-app-title" content="BhaavChitra" />
-    <link rel="manifest" href="@resources/favicon/site.webmanifest" />
-    <title>BhaavChitra Analysis Tool - Analyze Text Sentiment</title>
-    <meta
-      name="description"
-      content="Use BhaavChitra's powerful sentiment analysis tool to analyze emotions in your text, social media posts, and more in real-time."
-    />
-    <meta
-      name="keywords"
-      content="sentiment analysis tool, text analysis, emotion detection, social media analysis, real-time analysis"
-    />
-    <meta name="author" content="Manju Madhav V A, Nishanth K R" />
+    <style>
+      body {
+        background-color: #0a192f;
+        color: #e0e0e0;
+      }
+      .bg-custom-dark {
+        background-color: #0a192f;
+      }
+      .text-custom-light {
+        color: #e0e0e0;
+      }
+      .btn-custom {
+        background-color: #64ffda;
+        border-color: #64ffda;
+        color: #0a192f;
+        transition: all 0.3s ease;
+      }
+      .btn-custom:hover {
+        background-color: #0a192f;
+        border-color: #64ffda;
+        color: #64ffda;
+      }
+      .card {
+        background-color: rgba(10, 25, 47, 0.8);
+        border: 1px solid #64ffda;
+      }
+      .text-gradient {
+        background: linear-gradient(45deg, #64ffda, #6a98f0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+      #result {
+        transition: all 0.3s ease;
+      }
+      .form-select {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: #64ffda;
+        color: #e0e0e0;
+      }
+      .form-select:focus {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: #64ffda;
+        box-shadow: 0 0 0 0.25rem rgba(100, 255, 218, 0.25);
+        color: #e0e0e0;
+      }
+      .form-select option {
+        background-color: #0a192f;
+        color: #64ffda;
+      }
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://github.com/violetto-rose/BhaavChitra/tool"
-    />
-    <meta
-      property="og:title"
-      content="BhaavChitra Analysis Tool - Analyze Now"
-    />
-    <meta
-      property="og:description"
-      content="Start analyzing text sentiment and emotions with our advanced AI-powered tool."
-    />
-    <meta property="og:image" content="@resources/og-image.png" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="BhaavChitra Analysis Tool" />
-    <meta
-      name="twitter:description"
-      content="Start analyzing text sentiment and emotions with our advanced AI-powered tool."
-    />
-    <meta name="twitter:image" content="@resources/logo.png" />
-
-    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-    <link rel="stylesheet" href="CSS/bhaavchitra.css" />
-    <link rel="stylesheet" href="CSS/common.css" />
-    <link rel="stylesheet" href="CSS/shootingstar.css" />
+      .form-select option:hover {
+        background-color: #64ffda;
+        color: #0a192f;
+      }
+      .copyright-footer {
+        flex-shrink: 0;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-      <div class="spinner"></div>
-    </div>
-
-    <!--Cursor-->
-    <div id="circularcursor" class="normal"></div>
-
-    <!-- Fullscreen Popup -->
-    <div id="popupOverlay" class="popup-overlay">
-      <div class="popup-content">
-        <h2>Select Analysis Type</h2>
-        <div class="radio-input">
-          <label class="label">
-            <input
-              type="radio"
-              name="analysis-type"
-              id="normal-sentiment"
-              value="normal-sentiment"
-              checked
-            />
-            <p class="text">Normal Sentiment Analysis</p>
-          </label>
-          <label class="label">
-            <input
-              type="radio"
-              name="analysis-type"
-              id="feedback-sentiment"
-              value="feedback-sentiment"
-            />
-            <p class="text">Feedback Analysis</p>
-          </label>
+    <div id="particles-js"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">BhaavChitra</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a id="authLink" class="nav-link" href="/login">Login</a>
+            </li>
+          </ul>
         </div>
-        <button id="submitAnalysisType">Proceed</button>
       </div>
-    </div>
+    </nav>
 
-    <!-- Main Content -->
-    <div class="content">
-      <!--Starry background-->
-      <div class="starry-sky" id="backgroundContainer"></div>
-      <!--Title-->
-      <h1 id="bhaavchitra" class="title">
-        BhaavChitra
-        <!--Aurora-->
-        <div class="aurora">
-          <div class="aurora__item"></div>
-          <div class="aurora__item"></div>
-          <div class="aurora__item"></div>
-          <div class="aurora__item"></div>
-        </div>
+    <div class="container mt-5">
+      <h1 class="text-center mb-4 text-gradient">
+        BhaavChitra Sentiment Analysis
       </h1>
-      <!--Search Bar-->
-      <div class="search-bar">
-        <input
-          type="text"
-          id="textInput"
-          placeholder="Enter text, hashtag (e.g., #example), or link to a post..."
-          autocomplete="off"
-        />
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card p-4" data-aos="fade-up">
+            <form id="sentimentForm">
+              <div class="mb-3">
+                <label
+                  for="analysisType"
+                  class="form-label"
+                  style="color: white"
+                  >Select Analysis Type:</label
+                >
+                <select class="form-select" id="analysisType" required>
+                  <option value="">Choose an analysis type</option>
+                  <option value="normal-sentiment">
+                    Normal Sentiment Analysis
+                  </option>
+                  <option value="feedback-sentiment">
+                    Feedback Sentiment Analysis
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="textInput" class="form-label" style="color: white"
+                  >Enter your text for analysis:</label
+                >
+                <textarea
+                  class="form-control"
+                  id="textInput"
+                  rows="5"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-custom">Analyze Text</button>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="data">
-        <div id="analysisType">Selected Analysis Type: None</div>
-        <div id="charCount"></div>
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+          <div
+            id="result"
+            class="card p-4 d-none"
+            data-aos="fade-up"
+            style="color: white"
+          >
+            <h2 id="resultHeader" class="text-center mb-3">Analysis Result</h2>
+            <div id="confidenceScore" class="mt-3"></div>
+            <div class="progress mb-3">
+              <div
+                id="resultBar"
+                class="progress-bar"
+                role="progressbar"
+                style="width: 0%"
+                aria-valuenow="0"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <div id="analysisResult"></div>
+          </div>
+        </div>
       </div>
-      <!--Analyze Button-->
-      <button class="analyze-button" id="analyzeButton">Analyze</button>
-      <!--Result-->
-      <div class="analysis-result" id="result">Analysis will appear here</div>
     </div>
-    <footer id="copyright-footer" class="copyright-footer">
-      <p>
-        Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.
-      </p>
+
+    <footer id="copyright-footer" class="py-4 bg-custom-dark mt-5">
+      <div class="container">
+        <p class="m-0 text-center text-custom-light">
+          Copyright &copy; 2024 BhaavChitra (Manju Madhav V A and Nishanth K R).
+          All rights reserved.
+        </p>
+      </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script src="JS/connection.js"></script>
-    <script src="JS/nav.js"></script>
-    <script src="JS/script.js"></script>
-    <script src="JS/shootingstar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: "#ffffff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5, random: true },
+          size: { value: 3, random: true },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: "none",
+            random: true,
+            out_mode: "out",
+          },
+        },
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const authLink = document.getElementById("authLink");
+
+        fetch("/check_login")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.logged_in) {
+              authLink.textContent = "Logout";
+              authLink.href = "/logout";
+            } else {
+              authLink.textContent = "Login";
+              authLink.href = "/login";
+            }
+          })
+          .catch((error) => {
+            console.error("Error checking login status:", error);
+          });
+      });
+
+      document
+        .getElementById("sentimentForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const analysisType = document.getElementById("analysisType").value;
+          const text = document.getElementById("textInput").value;
+          analyzeText(analysisType, text);
+        });
+
+      function analyzeText(analysisType, text) {
+        // Show loading state
+        document.getElementById("result").classList.remove("d-none");
+        document.getElementById("resultHeader").innerHTML = "Analysis Result"
+        document.getElementById("analysisResult").innerHTML = "Analyzing...";
+        document.getElementById("confidenceScore").innerHTML = "";
+        document.getElementById("resultBar").style.width = "0%";
+        document.getElementById("resultBar").className = "progress-bar";
+
+        // Call the backend API
+        fetch("/set-analysis-type", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ analysis_type: analysisType }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Analysis type set:", data.analysis_type);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            document.getElementById("analysisResult").innerHTML =
+              "Error: " + error.message;
+          });
+
+        fetch("/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: text }),
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            displayResult(analysisType, result);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            document.getElementById("analysisResult").innerHTML =
+              "Error: " + error.message;
+          });
+      }
+
+      function displayResult(analysisType, result) {
+        const resultHeader = document.getElementById("resultHeader");
+        const resultDiv = document.getElementById("result");
+        const analysisResult = document.getElementById("analysisResult");
+        const confidenceScore = document.getElementById("confidenceScore");
+        const resultBar = document.getElementById("resultBar");
+
+        let resultText, barColor, barWidth;
+        resultText = `${result.gemini_explanation}`;
+        barColor =
+          result.overall_sentiment === "Positive"
+            ? "bg-success"
+            : result.overall_sentiment === "Negative"
+            ? "bg-danger"
+            : result.overall_sentiment === "Neutral"
+            ? "bg-info"
+            : "bg-warning";
+        barWidth = Math.abs(result.combined_score) * 100;
+
+        resultHeader.innerHTML = `Analysis Result: ${result.overall_sentiment}`;
+        analysisResult.innerHTML = resultText;
+
+        resultBar.style.width = `${barWidth}%`;
+        resultBar.setAttribute("aria-valuenow", barWidth);
+        resultBar.classList.add(barColor);
+
+        resultDiv.classList.remove("d-none");
+      }
+
+      function ensureCopyrightFooter() {
+        let footer = document.getElementById("copyright-footer");
+        if (!footer) {
+          footer = document.createElement("footer");
+          footer.id = "copyright-footer";
+          footer.className = "copyright-footer";
+          footer.innerHTML =
+            "<p>Copyright &copy; 2024 BhaavChitra (Manju Madhav V A and Nishanth K R). All rights reserved.</p>";
+          document.body.appendChild(footer);
+        }
+
+        const observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            if (mutation.type === "childList") {
+              const removedNodes = mutation.removedNodes;
+              for (let node of removedNodes) {
+                if (node.id === "copyright-footer") {
+                  document.body.appendChild(footer);
+                }
+              }
+            }
+          });
+        });
+
+        observer.observe(document.body, { childList: true });
+
+        setInterval(() => {
+          footer.style.display = "block";
+          footer.style.visibility = "visible";
+          footer.style.opacity = "1";
+        }, 100);
+      }
+
+      document.addEventListener("DOMContentLoaded", ensureCopyrightFooter);
+
+      setInterval(ensureCopyrightFooter, 1000);
+    </script>
   </body>
 </html>

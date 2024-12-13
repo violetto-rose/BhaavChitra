@@ -440,12 +440,18 @@ def login():
 
         if user and user.check_password(password):
             if login_user(user, remember=True):
+                session['_user_id'] = user.id
                 session.modified = True
                 return jsonify({'success': True, 'redirect': url_for('bhaavchitra')}), 200
         
         return jsonify({'error': 'Invalid email or password'}), 401
 
     return send_from_directory(app.static_folder, 'login.html')
+
+@app.route('/check_login', methods=['GET'])
+def check_login():
+    """Check if the user is logged in."""
+    return jsonify({'logged_in': '_user_id' in session})
 
 @app.route('/logout')
 @login_required

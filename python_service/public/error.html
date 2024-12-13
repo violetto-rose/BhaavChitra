@@ -1,63 +1,180 @@
-<!-- error.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Error - BhaavChitra</title>
-    <link rel="stylesheet" href="CSS/common.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
     <link rel="stylesheet" href="CSS/error.css" />
-    <link rel="stylesheet" href="CSS/shootingstar.css" />
+    <style>
+      body {
+        background-color: #0a192f;
+        color: #e0e0e0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .bg-custom-dark {
+        background-color: #0a192f;
+      }
+      .text-custom-light {
+        color: #e0e0e0;
+      }
+      .btn-custom {
+        background-color: #64ffda;
+        border-color: #64ffda;
+        color: #0a192f;
+        transition: all 0.3s ease;
+      }
+      .btn-custom:hover {
+        background-color: #0a192f;
+        border-color: #64ffda;
+        color: #64ffda;
+      }
+      .text-gradient {
+        background: linear-gradient(45deg, #64ffda, #6a98f0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+      .error-code {
+        font-size: 8rem;
+        font-weight: bold;
+        opacity: 0.5;
+      }
+      .error-message {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+      .error-description {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+    </style>
   </head>
   <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-      <div class="spinner"></div>
-    </div>
+    <div id="particles-js"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">BhaavChitra</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <div id="content">
-      <!-- Starry background -->
-      <div class="starry-sky" id="backgroundContainer"></div>
-
-      <div class="error-container">
-        <p id="error-code"></p>
-        <p id="error-title"></p>
-        <p id="error-message"></p>
-        <a href="/" class="btn-primary">Return to Home</a>
+    <div class="container flex-grow-1 d-flex align-items-center">
+      <div class="row justify-content-center w-100">
+        <div class="col-md-8 text-center">
+          <div data-aos="fade-up">
+            <h1 class="error-code text-gradient" id="errorCode">404</h1>
+            <h2 class="error-message mb-4" id="errorMessage">
+              Oops! Page not found
+            </h2>
+            <p class="error-description" id="errorDescription">
+              The page you are looking for might have been removed, had its name
+              changed, or is temporarily unavailable.
+            </p>
+            <a href="/" class="btn btn-custom btn-lg">Go to Homepage</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <footer id="copyright-footer" class="copyright-footer">
-      <p>
-        Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.
-      </p>
+    <footer class="py-4 bg-custom-dark mt-auto">
+      <div class="container">
+        <p class="m-0 text-center text-custom-light">
+          Copyright &copy; 2024 BhaavChitra (Manju Madhav V A and Nishanth K R).
+          All rights reserved.
+        </p>
+      </div>
     </footer>
 
-    <script src="JS/script.js"></script>
-    <script src="JS/shootingstar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-      // Set error message based on status code
-      const errorCode = "{{ error_code }}";
-      const errorCodeElement = document.getElementById("error-code");
-      const errorTitleElement = document.getElementById("error-title");
-      const errorMessageElement = document.getElementById("error-message");
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
 
-      if (errorCode === "404") {
-        errorCodeElement.textContent = errorCode;
-        errorTitleElement.textContent = "Page Not Found";
-        errorMessageElement.textContent =
-          "We couldn't find the page you were looking for. It might have been removed, renamed, or doesn't exist.";
-      } else if (errorCode === "500") {
-        errorCodeElement.textContent = errorCode;
-        errorTitleElement.textContent = "Internal Server Error";
-        errorMessageElement.textContent =
-          "We're experiencing some technical difficulties. Our team has been notified and is working on the issue.";
-      } else {
-        errorCodeElement.textContent = errorCode;
-        errorTitleElement.textContent = "Something went wrong";
-        errorMessageElement.textContent =
-          "We're sorry, but it seems there was an issue processing your request.";
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: "#ffffff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5, random: true },
+          size: { value: 3, random: true },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: "none",
+            random: true,
+            out_mode: "out",
+          },
+        },
+      });
+
+      // Function to get URL parameters
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = regex.exec(location.search);
+        return results === null
+          ? ""
+          : decodeURIComponent(results[1].replace(/\+/g, " "));
       }
+
+      // Set error details based on URL parameters
+      window.onload = function () {
+        var errorCode = getUrlParameter("code") || "404";
+        var errorMessage = getUrlParameter("message") || "Oops! Page not found";
+        var errorDescription =
+          getUrlParameter("description") ||
+          "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.";
+
+        document.getElementById("errorCode").textContent = errorCode;
+        document.getElementById("errorMessage").textContent = errorMessage;
+        document.getElementById("errorDescription").textContent =
+          errorDescription;
+      };
     </script>
   </body>
 </html>
