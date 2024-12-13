@@ -615,10 +615,11 @@ def add_copyright_footer(response):
         content = response.get_data(as_text=True)
         footer = '<footer id="copyright-footer" class="copyright-footer"><p>Copyright © 2024 Manju Madhav V A and Nishanth K R. All rights reserved.</p></footer>'
         
-        if '<div id="content">' in content:
-            content = content.replace('</div><!--content-->', '</div><!--content-->' + footer)
-        else:
-            content = content.replace('</body>', f'{footer}</body>')
+        if '<footer id="copyright-footer"' not in content:
+            if '<div id="content">' in content:
+                content = content.replace('</div><!--content-->', '</div><!--content-->' + footer)
+            else:
+                content = content.replace('</body>', f'{footer}</body>')
         
         response.set_data(content)
     return response
