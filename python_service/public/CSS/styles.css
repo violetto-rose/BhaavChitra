@@ -59,6 +59,7 @@ body {
   z-index: -1;
   object-fit: cover;
   width: 100%;
+  filter: blur(2px);
 }
 
 .intro-gif {
