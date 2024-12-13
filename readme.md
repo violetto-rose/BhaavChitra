@@ -40,26 +40,6 @@ Before installing BhaavChitra, ensure you have the following:
    ```bash
    python setup.py
    ```
-3. **Manual Setup** (Skip to [Configuration](#4-configuration) if you've run the setup script):
-
-   1. **Activate the Virtual Environment**:
-      - **Windows:**
-
-        ```bash
-        .venv\Scripts\activate
-        ```
-
-      - **macOS/Linux**:
-
-        ```bash
-        source .venv/bin/activate
-        ```
-
-   2. **Install Required Dependencies**:
-
-      ```bash
-      pip install -r requirements.txt
-      ```
 
 4. **Configuration**:
 
