@@ -28,6 +28,7 @@ function injectNavbar() {
   const links = [
     { href: "/", text: "Home", id: "home-link" },
     { href: "/bhaavchitra", text: "Services", id: "services-link" },
+    { href: "/login", text: "Login", id: "login" },
     { href: "/about", text: "About", id: "about-link" },
   ];
 
@@ -51,29 +52,6 @@ function injectNavbar() {
       });
     }
   });
-
-  const currentPage = window.location.pathname.split("/").pop();
-  if (
-    currentPage === "bhaavchitra.html" ||
-    currentPage === "bhaavchitra"
-  ) {
-    const logoutLi = document.createElement("li");
-    logoutLi.classList.add("nav-item");
-
-    const logoutLink = document.createElement("a");
-    logoutLink.href = "/logout";
-    logoutLink.classList.add("nav-link");
-    logoutLink.id = "logout-link";
-    logoutLink.textContent = "Logout";
-
-    logoutLink.addEventListener("click", (event) => {
-      event.preventDefault();
-      logoutUser();
-    });
-
-    logoutLi.appendChild(logoutLink);
-    navbarLinks.appendChild(logoutLi);
-  }
 
   const hamburger = document.createElement("div");
   hamburger.classList.add("hamburger");
@@ -163,4 +141,23 @@ document.addEventListener("DOMContentLoaded", () => {
   injectNavbar();
   setActiveLink();
   setNavbarWidth();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const authLink = document.getElementById("login");
+
+  fetch("/check_login")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.logged_in) {
+        authLink.textContent = "Logout";
+        authLink.href = "/logout";
+      } else {
+        authLink.textContent = "Login";
+        authLink.href = "/login";
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking login status:", error);
+    });
 });
