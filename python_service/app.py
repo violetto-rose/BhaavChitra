@@ -605,10 +605,6 @@ def handle_exception(e):
         content = file.read()
     return render_template_string(content, error_code=500), 500
 
-@app.route('/500')
-def test_500():
-    raise Exception("This is a test 500 error")
-
 @app.after_request
 def add_copyright_footer(response):
     if response.direct_passthrough:
@@ -647,10 +643,12 @@ def test_bert():
     except Exception as e:
         print(f"BERT Analyzer error: {e}")
         return jsonify({"error": str(e)}), 500
-'''
-# This route is for testing the 500 error page
 
-''''''
+# This route is for testing the 500 error page
+@app.route('/500')
+def test_500():
+    raise Exception("This is a test 500 error")
+'''
 
 if __name__ == '__main__':
     SELECTED_ANALYSIS_TYPE = "normal-sentiment"
