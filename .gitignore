@@ -15,3 +15,6 @@ app.log
 
 # Ignore Visual Studio folder
 .vs/
+
+# Ignore Obsidian folder
+.obsidian
